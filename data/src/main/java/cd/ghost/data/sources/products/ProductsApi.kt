@@ -15,8 +15,19 @@ interface ProductsApi {
      * @param category
      */
     @GET("/products/category/{category}")
-    suspend fun getAllProducts(
+    suspend fun getProductsByCategory(
         @Path("category") category: String?,
+        @Query("limit") limit: Int? = 10,
+        @Query("sort") sort: String? = "desc"
+    ): List<ResponseProduct>
+
+    /**
+     * Get all products
+     * @param limit use limit(Number)
+     * @param sort Default value is in ascending mode, you can use with 'desc' or 'asc' as you want.
+     */
+    @GET("/products")
+    suspend fun getAllProducts(
         @Query("limit") limit: Int? = 10,
         @Query("sort") sort: String? = "desc"
     ): List<ResponseProduct>

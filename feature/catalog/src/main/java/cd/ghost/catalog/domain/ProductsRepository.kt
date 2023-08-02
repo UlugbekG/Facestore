@@ -4,5 +4,7 @@ import cd.ghost.catalog.domain.entity.EntityProduct
 
 interface ProductsRepository {
 
-    suspend fun getProducts(category: String?, sort: String?): List<EntityProduct>
+    suspend fun getAllProducts(sort: String?): List<EntityProduct>
+
+    suspend fun getProductsByCategory(category: String?, sort: String?): List<EntityProduct>
 }

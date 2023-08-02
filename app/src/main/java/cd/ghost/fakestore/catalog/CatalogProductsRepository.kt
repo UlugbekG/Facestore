@@ -10,12 +10,34 @@ class CatalogProductsRepository @Inject constructor(
     private val repository: DataProductsRepository
 ) : ProductsRepository {
 
-    override suspend fun getProducts(
+
+    override suspend fun getAllProducts(
+        sort: String?
+    ): List<EntityProduct> {
+        return repository
+            .getAllProducts(limit = 10, sort)
+            .map {
+                EntityProduct(
+                    id = it.id,
+                    title = it.title,
+                    description = it.description,
+                    price = it.price,
+                    category = it.category,
+                    imageUrl = it.imageUrl,
+                    rating = ProductRating(
+                        rate = it.rating?.rate,
+                        count = it.rating?.count
+                    )
+                )
+            }
+    }
+
+    override suspend fun getProductsByCategory(
         category: String?,
         sort: String?
     ): List<EntityProduct> {
         return repository
-            .getAllProducts(category, limit = 5, sort)
+            .getProductsByCategory(category = category, sort = sort, limit = 10)
             .map {
                 EntityProduct(
                     id = it.id,

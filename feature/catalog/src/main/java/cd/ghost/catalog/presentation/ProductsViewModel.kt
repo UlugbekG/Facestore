@@ -26,7 +26,7 @@ class ProductsViewModel @Inject constructor(
 
     fun fetchProducts() {
         viewModelScope.launch {
-            productsRepo(category = "", sort = "")
+            productsRepo(sort = "desc")
                 .collectLatest {
                     _products.value = it
                 }

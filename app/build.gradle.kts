@@ -41,6 +41,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
@@ -51,6 +52,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(project(mapOf("path" to ":data")))
     implementation(project(mapOf("path" to ":feature:catalog")))
+    implementation(project(mapOf("path" to ":core:common")))
     testImplementation(libs.junit)
 
     implementation(libs.androidx.navigation.fragment.ktx)
