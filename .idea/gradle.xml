@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/core/presentation" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/cart" />
             <option value="$PROJECT_DIR$/feature/catalog" />
           </set>
         </option>

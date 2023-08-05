@@ -5,10 +5,20 @@
     android:id="@+id/home_nav_graph"
     app:startDestination="@id/productsFragment">
 
-
     <fragment
         android:id="@+id/productsFragment"
         android:name="cd.ghost.catalog.presentation.productlist.ProductsFragment"
         android:label="ProductsFragment"
-        tools:layout="@layout/frag_products" />
+        tools:layout="@layout/frag_products" >
+        <action
+            android:id="@+id/action_productsFragment_to_filterFrag"
+            app:destination="@id/filterFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/filterFrag"
+        android:name="cd.ghost.catalog.presentation.filter.FilterFrag"
+        android:label="FilterFrag"
+        tools:layout="@layout/frag_filter" />
+
 </navigation>

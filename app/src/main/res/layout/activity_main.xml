@@ -9,4 +9,4 @@
     android:orientation="vertical"
     app:defaultNavHost="true"
     app:navGraph="@navigation/main_graph"
-    tools:context=".MainActivity" />
+    tools:context=".main.MainActivity" />

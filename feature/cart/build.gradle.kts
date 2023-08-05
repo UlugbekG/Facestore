@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "cd.ghost.catalog"
+    namespace = "cd.ghost.cart"
     compileSdk = 33
 
     defaultConfig {
@@ -30,7 +30,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
     kotlinOptions {
         jvmTarget = "17"
     }
@@ -45,15 +44,13 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(project(mapOf("path" to ":core:common")))
-    implementation(project(mapOf("path" to ":core:presentation")))
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(project(mapOf("path" to ":core:common")))
+    implementation(project(mapOf("path" to ":core:presentation")))
+
 
     implementation(libs.coil)
 

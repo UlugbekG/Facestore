@@ -1,4 +1,4 @@
-package cd.ghost.fakestore
+package cd.ghost.fakestore.main
 
 import android.os.Bundle
 import android.view.View
@@ -7,13 +7,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import javax.inject.Inject
-import javax.inject.Singleton
+import cd.ghost.fakestore.R
 
-@Singleton
-class NavComponentRouter @Inject constructor() {
 
-    private var currentActivity: FragmentActivity? = null
+class NavComponentRouter : NavControllerHolder {
+
+    private var activity: FragmentActivity? = null
 
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentViewCreated(
@@ -23,10 +22,6 @@ class NavComponentRouter @Inject constructor() {
             savedInstanceState: Bundle?
         ) {
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
-//            if (f is TabsFragment || f is NavHostFragment) return
-//            val currentNavController = f.findNavController()
-//            onNavControllerActivated(currentNavController)
-//            destinationListeners.forEach { it() }
         }
 
         override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
@@ -39,44 +34,32 @@ class NavComponentRouter @Inject constructor() {
     }
 
     fun onCreate(activity: FragmentActivity) {
-        this.currentActivity = activity
-        currentActivity
-            ?.supportFragmentManager
-            ?.registerFragmentLifecycleCallbacks(fragmentListener, true)
+        this.activity = activity
+        activity
+            .supportFragmentManager
+            .registerFragmentLifecycleCallbacks(fragmentListener, true)
     }
 
     fun onDestroy() {
-        currentActivity
+        activity
             ?.supportFragmentManager
             ?.unregisterFragmentLifecycleCallbacks(fragmentListener)
-        this.currentActivity = null
+        this.activity = null
     }
 
-    fun mainNavController(): NavController {
-        val fragmentManager = currentActivity?.supportFragmentManager
+    override fun rootNavController(): NavController {
+        val fragmentManager = activity?.supportFragmentManager
         val navHost =
             fragmentManager?.findFragmentById(R.id.main_nav_host_container) as NavHostFragment
         return navHost.navController
     }
 
-    fun tabsNavController(): NavController {
-        val fragmentManager = currentActivity?.supportFragmentManager
-        val navHost =
-            fragmentManager?.findFragmentById(R.id.tabs_nav_host_container) as NavHostFragment
-        return navHost.navController
-    }
-
-    fun popUp() {
-        mainNavController().navigateUp()
-//        currentActivity?.onBackPressedDispatcher?.onBackPressed()
-    }
-
     fun onSaveInstanceState(bundle: Bundle) {
-        bundle.putBundle(KEY_NAVIGATION, mainNavController().saveState())
+        bundle.putBundle(KEY_NAVIGATION, rootNavController().saveState())
     }
 
     fun onRestoreInstanceState(bundle: Bundle) {
-        mainNavController().restoreState(bundle)
+        rootNavController().restoreState(bundle)
     }
 
     private companion object {

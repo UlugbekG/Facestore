@@ -1,14 +1,17 @@
-package cd.ghost.fakestore
+package cd.ghost.fakestore.main.tabs
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import cd.ghost.fakestore.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class TabsFrag : Fragment(R.layout.frag_tabs) {
+
+    private val viewModel by viewModels<TabsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -18,6 +21,8 @@ class TabsFrag : Fragment(R.layout.frag_tabs) {
         val navController = navHostFragment.navController
 
         val bottomNavigation = view.findViewById(R.id.bottom_navigation) as BottomNavigationView
+
+        bottomNavigation.getOrCreateBadge(R.id.home_nav_graph).number = 3
 
         NavigationUI.setupWithNavController(
             bottomNavigation,

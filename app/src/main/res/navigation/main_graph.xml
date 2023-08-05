@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/tabsFrag"
-        android:name="cd.ghost.fakestore.TabsFrag"
+        android:name="cd.ghost.fakestore.main.tabs.TabsFrag"
         android:label="TabsFrag"
         tools:layout="@layout/frag_tabs" >
         <action
