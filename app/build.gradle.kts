@@ -53,6 +53,7 @@ dependencies {
     implementation(project(mapOf("path" to ":data")))
     implementation(project(mapOf("path" to ":feature:catalog")))
     implementation(project(mapOf("path" to ":core:common")))
+    implementation(project(mapOf("path" to ":core:presentation")))
     testImplementation(libs.junit)
 
     implementation(libs.androidx.navigation.fragment.ktx)

@@ -2,12 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph.xml"
+    android:id="@+id/home_nav_graph"
     app:startDestination="@id/productsFragment">
+
 
     <fragment
         android:id="@+id/productsFragment"
-        android:name="cd.ghost.catalog.presentation.ProductsFragment"
+        android:name="cd.ghost.catalog.presentation.productlist.ProductsFragment"
         android:label="ProductsFragment"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/frag_products" />
 </navigation>

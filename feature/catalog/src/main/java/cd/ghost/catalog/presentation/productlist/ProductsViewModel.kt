@@ -1,4 +1,4 @@
-package cd.ghost.catalog.presentation
+package cd.ghost.catalog.presentation.productlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,15 +8,15 @@ import cd.ghost.common.Container
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
-    private val productsRepo: ProductsListUseCase
-) : ViewModel() {
+    private val productsRepo: ProductsListUseCase,
+    private val router: CatalogRouter,
+) : ViewModel(), OnClickListener {
 
     private val _products = MutableStateFlow<Container<List<EntityProduct>>>(Container.Pending)
     val products: StateFlow<Container<List<EntityProduct>>> = _products
@@ -32,4 +32,13 @@ class ProductsViewModel @Inject constructor(
                 }
         }
     }
+
+    override fun onClick(item: EntityProduct) {
+        router.navigateToDetail(item.id)
+    }
+
+    override fun onLongClick(item: EntityProduct) {
+
+    }
+
 }

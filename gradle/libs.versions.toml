@@ -23,7 +23,7 @@ androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-view
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation-ui-ktx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation-ui-ktx" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation-fragment-ktx" }
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 element-adapter = { module = "com.elveum:element-adapter", version.ref = "element-adapter" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-version" }
@@ -44,7 +44,7 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 safeArgsKotlin = { id = "androidx.navigation.safeargs", version.ref = "kotlin" }
 com-android-library = { id = "com.android.library", version.ref = "agp" }
 hilt-library = { id = "com.google.dagger.hilt.android", version.ref = "hilt-version" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin"}
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 
 [bundles]
 

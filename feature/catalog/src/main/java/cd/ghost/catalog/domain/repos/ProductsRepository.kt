@@ -1,4 +1,4 @@
-package cd.ghost.catalog.domain
+package cd.ghost.catalog.domain.repos
 
 import cd.ghost.catalog.domain.entity.EntityProduct
 

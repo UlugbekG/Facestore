@@ -1,4 +1,4 @@
-package cd.ghost.catalog.presentation
+package cd.ghost.catalog.presentation.productlist
 
 import android.os.Bundle
 import android.util.Log
@@ -8,24 +8,24 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import cd.ghost.catalog.R
-import cd.ghost.catalog.databinding.FragmentProductsBinding
-import cd.ghost.catalog.domain.entity.EntityProduct
+import cd.ghost.catalog.databinding.FragProductsBinding
 import cd.ghost.common.Container
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import viewBinding
 
+
 @AndroidEntryPoint
-class ProductsFragment : Fragment(R.layout.fragment_products), OnClickListener {
+class ProductsFragment : Fragment(R.layout.frag_products) {
 
     private val TAG = "ProductsFragment"
 
     private val viewModel by viewModels<ProductsViewModel>()
-    private val binding by viewBinding<FragmentProductsBinding>()
-    private val adapter by lazy { ProductsAdapter(this) }
+    private val binding by viewBinding<FragProductsBinding>()
+    private val adapter by lazy { ProductsAdapter(viewModel) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +34,7 @@ class ProductsFragment : Fragment(R.layout.fragment_products), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
-            root.adapter = adapter
-            root.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        }
+        setupRecyclerView()
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -66,11 +62,14 @@ class ProductsFragment : Fragment(R.layout.fragment_products), OnClickListener {
         }
     }
 
-    override fun onClick(item: EntityProduct) {
-
-    }
-
-    override fun onLongClick(item: EntityProduct) {
-
+    private fun setupRecyclerView() {
+        binding.apply {
+            recyclerView.adapter = adapter
+            val displayMetrics = resources.displayMetrics
+            val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
+            val spanCount = (screenWidthDp / 180).toInt() // adjust 180 to your desired item width
+            val layoutManager = GridLayoutManager(context, spanCount)
+            recyclerView.layoutManager = layoutManager
+        }
     }
 }

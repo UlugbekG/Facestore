@@ -2,12 +2,10 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.kapt)
-    alias(libs.plugins.hilt.library)
 }
 
 android {
-    namespace = "cd.ghost.catalog"
+    namespace = "cd.ghost.presentation"
     compileSdk = 33
 
     defaultConfig {
@@ -27,16 +25,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
-        jvmTarget = "17"
-    }
-
-    buildFeatures {
-        viewBinding = true
+        jvmTarget = "1.8"
     }
 }
 
@@ -45,17 +38,7 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(project(mapOf("path" to ":core:common")))
-    implementation(project(mapOf("path" to ":core:presentation")))
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    implementation(libs.coil)
-
-    implementation("androidx.fragment:fragment-ktx:1.6.0")
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
 }

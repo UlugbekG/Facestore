@@ -1,4 +1,4 @@
-package cd.ghost.catalog.presentation
+package cd.ghost.catalog.presentation.productlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import cd.ghost.catalog.databinding.ItemProductBinding
 import cd.ghost.catalog.domain.entity.EntityProduct
+import coil.load
 
 interface OnClickListener {
     fun onClick(item: EntityProduct)
@@ -22,7 +23,13 @@ class ProductsAdapter constructor(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: EntityProduct) {
             binding.apply {
-                tvProduct.text = item.title
+                ivProduct.load(item.imageUrl) {
+//                    crossfade(true)
+//                    placeholder(R.drawable.image)
+//                    transformations(CircleCropTransformation())
+                }
+                tvTitle.text = item.title
+                tvPrice.text = "$${item.price}"
             }
             itemView.setOnClickListener {
                 onClick.onClick(item)

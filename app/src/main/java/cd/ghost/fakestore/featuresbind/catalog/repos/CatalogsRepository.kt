@@ -1,12 +1,12 @@
-package cd.ghost.fakestore.catalog
+package cd.ghost.fakestore.featuresbind.catalog.repos
 
-import cd.ghost.catalog.domain.ProductsRepository
+import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.catalog.domain.entity.EntityProduct
 import cd.ghost.catalog.domain.entity.ProductRating
 import cd.ghost.data.DataProductsRepository
 import javax.inject.Inject
 
-class CatalogProductsRepository @Inject constructor(
+class CatalogsRepository @Inject constructor(
     private val repository: DataProductsRepository
 ) : ProductsRepository {
 
@@ -15,7 +15,7 @@ class CatalogProductsRepository @Inject constructor(
         sort: String?
     ): List<EntityProduct> {
         return repository
-            .getAllProducts(limit = 10, sort)
+            .getAllProducts(limit = 100, sort)
             .map {
                 EntityProduct(
                     id = it.id,
