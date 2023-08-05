@@ -8,14 +8,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-//fun Fragment.findTabsNavController(): NavController {
-//    val tabsNavHost = requireActivity()
-//        .supportFragmentManager
-//        .findFragmentById(R.id.tabs_nav_host_container) as NavHostFragment
-//
-//    return tabsNavHost.navController
-//}
-
 class TabsFrag : Fragment(R.layout.frag_tabs) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

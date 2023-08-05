@@ -1,7 +1,7 @@
-package cd.ghost.fakestore.featuresbind.detail.di
+package cd.ghost.fakestore.features.detail.di
 
 import cd.ghost.catalog.presentation.detail.DetailRouter
-import cd.ghost.fakestore.featuresbind.detail.AdapterDetailRouter
+import cd.ghost.fakestore.features.detail.AdapterDetailRouter
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

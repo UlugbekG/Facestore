@@ -1,4 +1,4 @@
-package cd.ghost.fakestore.featuresbind.catalog.repos
+package cd.ghost.fakestore.features.catalog.repos
 
 import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.catalog.domain.entity.EntityProduct

@@ -1,4 +1,4 @@
-package cd.ghost.fakestore.featuresbind.catalog
+package cd.ghost.fakestore.features.catalog
 
 import cd.ghost.catalog.presentation.productlist.CatalogRouter
 import cd.ghost.fakestore.NavComponentRouter

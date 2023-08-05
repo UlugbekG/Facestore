@@ -1,7 +1,7 @@
-package cd.ghost.fakestore.featuresbind.catalog.di
+package cd.ghost.fakestore.features.catalog.di
 
 import cd.ghost.catalog.domain.repos.ProductsRepository
-import cd.ghost.fakestore.featuresbind.catalog.repos.CatalogsRepository
+import cd.ghost.fakestore.features.catalog.repos.CatalogsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
