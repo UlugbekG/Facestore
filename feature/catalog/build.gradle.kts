@@ -54,6 +54,7 @@ dependencies {
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
 
     implementation(libs.coil)
 

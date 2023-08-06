@@ -16,6 +16,7 @@ constraintlayout = "2.1.4"
 retrofit = "2.9.0"
 navigation-ui-ktx = "2.6.0"
 navigation-fragment-ktx = "2.6.0"
+lifecycle-livedata-ktx = "2.6.1"
 
 [libraries]
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-viewmodel-ktx" }
@@ -23,6 +24,7 @@ androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-view
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation-ui-ktx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation-ui-ktx" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation-fragment-ktx" }
+lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-livedata-ktx" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 element-adapter = { module = "com.elveum:element-adapter", version.ref = "element-adapter" }

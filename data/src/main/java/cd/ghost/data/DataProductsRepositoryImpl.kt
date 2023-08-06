@@ -26,7 +26,7 @@ class DataProductsRepositoryImpl @Inject constructor(
         productsApi.getProduct(productId)
     }
 
-    override suspend fun getCategory(): List<String> = catchingBlock {
+    override suspend fun getCategories(): List<String> = catchingBlock {
         productsApi.getCategories()
     }
 

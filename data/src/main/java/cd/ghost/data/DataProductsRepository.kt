@@ -17,6 +17,6 @@ interface DataProductsRepository {
 
     suspend fun getProduct(productId: Int): ResponseProduct
 
-    suspend fun getCategory(): List<String>
+    suspend fun getCategories(): List<String>
 
 }

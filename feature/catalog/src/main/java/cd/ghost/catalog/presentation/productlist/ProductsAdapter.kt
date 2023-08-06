@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import cd.ghost.catalog.R
 import cd.ghost.catalog.databinding.ItemProductBinding
 import cd.ghost.catalog.domain.entity.EntityProduct
 import coil.load
+import coil.transform.CircleCropTransformation
 
 interface OnClickListener {
     fun onClick(item: EntityProduct)
@@ -24,9 +26,9 @@ class ProductsAdapter constructor(
         fun onBind(item: EntityProduct) {
             binding.apply {
                 ivProduct.load(item.imageUrl) {
-//                    crossfade(true)
-//                    placeholder(R.drawable.image)
-//                    transformations(CircleCropTransformation())
+                    crossfade(true)
+                    placeholder(R.drawable.image_place_holder)
+                    transformations(CircleCropTransformation())
                 }
                 tvTitle.text = item.title
                 tvPrice.text = "$${item.price}"

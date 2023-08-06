@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import cd.ghost.catalog.R
 import cd.ghost.catalog.databinding.FragProductsBinding
+import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.presentation.detail.DetailFrag
 import cd.ghost.catalog.presentation.detail.DetailFrag.Companion.DETAIL_ARG
 import cd.ghost.catalog.presentation.filter.FilterFrag
@@ -21,14 +22,13 @@ import cd.ghost.catalog.presentation.filter.FilterFrag.Companion.FILTER_ARG
 import cd.ghost.common.Container
 import cd.ghost.common.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import viewBinding
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class ProductsFragment : Fragment(R.layout.frag_products) {
+class ProductsFrag : Fragment(R.layout.frag_products) {
 
     private val TAG = "ProductsFragment"
 
@@ -39,14 +39,10 @@ class ProductsFragment : Fragment(R.layout.frag_products) {
     @Inject
     lateinit var destinations: ProductsDestinationId
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.fetchProducts()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        filterResultReceiver()
 
         binding.btnFilter.setOnClickListener {
             viewModel.navigateToFilter()
@@ -54,7 +50,7 @@ class ProductsFragment : Fragment(R.layout.frag_products) {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.products.collectLatest {
+                viewModel.products.observe(viewLifecycleOwner) {
                     when (it) {
                         is Container.Success -> {
                             adapter.submitList(it.data)
@@ -95,6 +91,16 @@ class ProductsFragment : Fragment(R.layout.frag_products) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    private fun filterResultReceiver() {
+        findNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<FilterData>(FILTER_ARG)
+            ?.observe(viewLifecycleOwner) { result ->
+                viewModel.setFilterResult(result)
+            }
     }
 
     private fun setupRecyclerView() {

@@ -1,21 +1,22 @@
 package cd.ghost.fakestore.features.catalog.repos
 
-import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.catalog.domain.entity.EntityProduct
 import cd.ghost.catalog.domain.entity.ProductRating
+import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.data.DataProductsRepository
 import javax.inject.Inject
 
-class CatalogsRepository @Inject constructor(
+class DefaultCatalogsRepository @Inject constructor(
     private val repository: DataProductsRepository
 ) : ProductsRepository {
 
 
     override suspend fun getAllProducts(
-        sort: String?
+        sort: String?,
+        limit: Int
     ): List<EntityProduct> {
         return repository
-            .getAllProducts(limit = 100, sort)
+            .getAllProducts(limit = limit, sort = sort)
             .map {
                 EntityProduct(
                     id = it.id,
@@ -34,10 +35,11 @@ class CatalogsRepository @Inject constructor(
 
     override suspend fun getProductsByCategory(
         category: String?,
-        sort: String?
+        sort: String?,
+        limit: Int
     ): List<EntityProduct> {
         return repository
-            .getProductsByCategory(category = category, sort = sort, limit = 10)
+            .getProductsByCategory(category = category, sort = sort, limit = limit)
             .map {
                 EntityProduct(
                     id = it.id,
