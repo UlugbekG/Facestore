@@ -123,6 +123,20 @@
             android:paddingHorizontal="16dp">
 
             <RadioButton
+                android:id="@+id/btnAsc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="Ascending" />
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
                 android:id="@+id/btnDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,21 +145,7 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:gravity="center"
-                android:text="desc" />
-
-            <Space
-                android:layout_width="8dp"
-                android:layout_height="wrap_content" />
-
-            <RadioButton
-                android:id="@+id/btnAsc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radio_flat_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="asc" />
+                android:text="Descending" />
 
         </RadioGroup>
 

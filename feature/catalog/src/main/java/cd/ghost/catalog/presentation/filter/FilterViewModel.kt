@@ -40,10 +40,13 @@ class FilterViewModel @Inject constructor(
 
     fun fetchCategories() {
         viewModelScope.launch {
-            getCategoriesUseCase
-                .invoke()
+            getCategoriesUseCase()
                 .collectLatest {
-                    _categories.value = ArrayList(it).apply { add("all") }
+                    val categories = ArrayList<String>().apply {
+                        add("all")
+                        addAll(it)
+                    }
+                    _categories.value = categories
                 }
         }
     }
