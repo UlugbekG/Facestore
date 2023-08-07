@@ -55,4 +55,20 @@ class DefaultCatalogsRepository @Inject constructor(
                 )
             }
     }
+
+    override suspend fun getProductById(productId: Int): EntityProduct {
+        val response = repository.getProduct(productId)
+        return EntityProduct(
+            id = response.id,
+            title = response.title,
+            description = response.description,
+            price = response.price,
+            category = response.category,
+            imageUrl = response.imageUrl,
+            rating = ProductRating(
+                rate = response.rating?.rate,
+                count = response.rating?.count
+            )
+        )
+    }
 }

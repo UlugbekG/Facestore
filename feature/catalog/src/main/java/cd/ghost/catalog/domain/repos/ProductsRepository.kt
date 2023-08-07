@@ -7,4 +7,7 @@ interface ProductsRepository {
     suspend fun getAllProducts(sort: String?, limit: Int): List<EntityProduct>
 
     suspend fun getProductsByCategory(category: String?, sort: String?, limit:Int): List<EntityProduct>
+
+    suspend fun getProductById(productId:Int):EntityProduct
+
 }

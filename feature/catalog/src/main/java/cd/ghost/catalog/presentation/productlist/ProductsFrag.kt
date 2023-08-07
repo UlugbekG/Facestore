@@ -22,6 +22,7 @@ import cd.ghost.catalog.presentation.filter.FilterFrag.Companion.FILTER_ARG
 import cd.ghost.common.Container
 import cd.ghost.common.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import viewBinding
 import javax.inject.Inject
@@ -50,7 +51,7 @@ class ProductsFrag : Fragment(R.layout.frag_products) {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.products.observe(viewLifecycleOwner) {
+                viewModel.products.collectLatest {
                     when (it) {
                         is Container.Success -> {
                             adapter.submitList(it.data)

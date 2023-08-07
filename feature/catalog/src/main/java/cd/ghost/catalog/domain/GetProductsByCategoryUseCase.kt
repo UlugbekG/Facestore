@@ -1,8 +1,7 @@
 package cd.ghost.catalog.domain
 
-import cd.ghost.catalog.domain.entity.Category
 import cd.ghost.catalog.domain.entity.EntityProduct
-import cd.ghost.catalog.domain.entity.SortType
+import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.common.Container
 import cd.ghost.common.IoDispatcher
@@ -18,15 +17,13 @@ class GetProductsByCategoryUseCase @Inject constructor(
 ) {
 
     operator fun invoke(
-        category: Category,
-        sort: SortType,
-        limit: Int
+        filter: FilterData
     ): Flow<Container<List<EntityProduct>>> = flow {
         try {
             val list = repository.getProductsByCategory(
-                sort = sort.value,
-                limit = limit,
-                category = category.value
+                sort = filter.sort.value,
+                limit = filter.itemsSize,
+                category = filter.category.value
             )
             emit(Container.Success(list))
         } catch (e: Exception) {
