@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(project(mapOf("path" to ":data")))
     implementation(project(mapOf("path" to ":feature:catalog")))
+    implementation(project(mapOf("path" to ":feature:cart")))
     implementation(project(mapOf("path" to ":core:common")))
     implementation(project(mapOf("path" to ":core:presentation")))
     testImplementation(libs.junit)

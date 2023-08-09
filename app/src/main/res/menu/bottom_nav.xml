@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_home_24"
         android:title="Home" />
 
+    <item
+        android:id="@id/cartFrag2"
+        android:icon="@drawable/ic_cart_24"
+        android:title="Cart" />
+
 </menu>

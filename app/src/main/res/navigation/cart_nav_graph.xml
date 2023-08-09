@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cart_nav_graph"
+    app:startDestination="@id/cartFrag">
+
+    <fragment
+        android:id="@+id/cartFrag"
+        android:name="cd.ghost.cart.presentation.CartFrag"
+        android:label="CartFrag"
+        tools:layout="@layout/frag_cart" />
+
+</navigation>

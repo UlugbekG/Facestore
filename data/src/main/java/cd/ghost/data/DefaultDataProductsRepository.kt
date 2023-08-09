@@ -4,7 +4,7 @@ import cd.ghost.data.sources.products.ProductsApi
 import cd.ghost.data.sources.products.entities.ResponseProduct
 import javax.inject.Inject
 
-class DataProductsRepositoryImpl @Inject constructor(
+class DefaultDataProductsRepository @Inject constructor(
     private val productsApi: ProductsApi
 ) : DataProductsRepository, BaseRepository() {
     override suspend fun getProductsByCategory(

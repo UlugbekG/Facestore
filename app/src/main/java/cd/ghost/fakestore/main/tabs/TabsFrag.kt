@@ -22,11 +22,13 @@ class TabsFrag : Fragment(R.layout.frag_tabs) {
 
         val bottomNavigation = view.findViewById(R.id.bottom_navigation) as BottomNavigationView
 
-        bottomNavigation.getOrCreateBadge(R.id.home_nav_graph).number = 3
-
         NavigationUI.setupWithNavController(
             bottomNavigation,
             navController,
         )
+
+        viewModel.orders.observe(viewLifecycleOwner) {
+            if (it != 0) bottomNavigation.getOrCreateBadge(R.id.cartFrag2).number = it
+        }
     }
 }

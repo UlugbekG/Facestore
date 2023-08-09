@@ -1,5 +1,6 @@
 package cd.ghost.data.sources.carts
 
+import cd.ghost.data.sources.carts.entity.CartProduct
 import cd.ghost.data.sources.carts.entity.ResponseCart
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -39,6 +40,6 @@ interface CartsApi {
     @GET("/carts/user/{id}")
     suspend fun getUserCart(
         @Path("id") userId: Int
-    ): List<ResponseCart>
+    ): List<CartProduct>
 
 }

@@ -1,7 +1,9 @@
 package cd.ghost.fakestore.di
 
+import cd.ghost.data.DataCartsRepository
 import cd.ghost.data.DataProductsRepository
-import cd.ghost.data.DataProductsRepositoryImpl
+import cd.ghost.data.DefaultDataCartsRepository
+import cd.ghost.data.DefaultDataProductsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +16,10 @@ abstract class BindsModule {
 
     @Binds
     @Singleton
-    abstract fun bindProductsApi(repo: DataProductsRepositoryImpl): DataProductsRepository
+    abstract fun bindProductsRepo(repo: DefaultDataProductsRepository): DataProductsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindCartsRepo(repo: DefaultDataCartsRepository): DataCartsRepository
+
 }
