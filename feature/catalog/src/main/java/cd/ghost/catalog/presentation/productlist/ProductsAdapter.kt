@@ -7,23 +7,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import cd.ghost.catalog.R
 import cd.ghost.catalog.databinding.ItemProductBinding
-import cd.ghost.catalog.domain.entity.EntityProduct
+import cd.ghost.catalog.domain.entity.ProductEntity
 import coil.load
-import coil.transform.CircleCropTransformation
 
 interface OnClickListener {
-    fun onClick(item: EntityProduct)
-    fun onLongClick(item: EntityProduct)
+    fun onClick(item: ProductEntity)
+    fun onLongClick(item: ProductEntity)
 }
 
 class ProductsAdapter constructor(
     private val onClick: OnClickListener
-) : ListAdapter<EntityProduct, ProductsAdapter.ProductViewHolder>(DifferUtil()) {
+) : ListAdapter<ProductEntity, ProductsAdapter.ProductViewHolder>(DifferUtil()) {
 
     inner class ProductViewHolder(
         private val binding: ItemProductBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: EntityProduct) {
+        fun onBind(item: ProductEntity) {
             binding.apply {
                 ivProduct.load(item.imageUrl) {
                     crossfade(true)
@@ -54,12 +53,12 @@ class ProductsAdapter constructor(
     }
 }
 
-class DifferUtil : DiffUtil.ItemCallback<EntityProduct>() {
-    override fun areItemsTheSame(oldItem: EntityProduct, newItem: EntityProduct): Boolean {
+class DifferUtil : DiffUtil.ItemCallback<ProductEntity>() {
+    override fun areItemsTheSame(oldItem: ProductEntity, newItem: ProductEntity): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: EntityProduct, newItem: EntityProduct): Boolean {
+    override fun areContentsTheSame(oldItem: ProductEntity, newItem: ProductEntity): Boolean {
         return oldItem.id == newItem.id
     }
 }

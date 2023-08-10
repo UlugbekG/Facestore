@@ -8,7 +8,7 @@
 <!--    <include app:graph="@navigation/cart_nav_graph" />-->
     <fragment
         android:id="@+id/cartFrag2"
-        android:name="cd.ghost.cart.presentation.CartFrag"
+        android:name="cd.ghost.cart.presentation.cartlist.CartFrag"
         android:label="CartFrag" />
 
 </navigation>

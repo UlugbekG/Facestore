@@ -1,6 +1,6 @@
 package cd.ghost.catalog.domain.entity
 
-data class EntityProduct(
+data class ProductEntity(
     val id: Int?,
     val title: String?,
     val price: String?,

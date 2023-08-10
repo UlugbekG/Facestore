@@ -54,8 +54,8 @@ class ProductsFrag : Fragment(R.layout.frag_products) {
                 viewModel.products.collectLatest {
                     when (it) {
                         is Container.Success -> {
-                            adapter.submitList(it.data)
-                            Log.d(TAG, "Success: ${it.data}")
+                            adapter.submitList(it.value)
+                            Log.d(TAG, "Success: ${it.value}")
                         }
 
                         is Container.Error -> {

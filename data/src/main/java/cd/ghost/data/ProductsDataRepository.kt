@@ -2,7 +2,7 @@ package cd.ghost.data
 
 import cd.ghost.data.sources.products.entities.ResponseProduct
 
-interface DataProductsRepository {
+interface ProductsDataRepository {
 
     suspend fun getProductsByCategory(
         category: String?,

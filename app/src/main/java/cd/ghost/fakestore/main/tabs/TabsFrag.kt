@@ -8,7 +8,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import cd.ghost.fakestore.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TabsFrag : Fragment(R.layout.frag_tabs) {
 
     private val viewModel by viewModels<TabsViewModel>()
@@ -27,7 +29,7 @@ class TabsFrag : Fragment(R.layout.frag_tabs) {
             navController,
         )
 
-        viewModel.orders.observe(viewLifecycleOwner) {
+        viewModel.cartItems.observe(viewLifecycleOwner) {
             if (it != 0) bottomNavigation.getOrCreateBadge(R.id.cartFrag2).number = it
         }
     }

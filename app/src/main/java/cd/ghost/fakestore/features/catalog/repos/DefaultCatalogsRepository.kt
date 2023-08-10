@@ -1,74 +1,48 @@
 package cd.ghost.fakestore.features.catalog.repos
 
-import cd.ghost.catalog.domain.entity.EntityProduct
-import cd.ghost.catalog.domain.entity.ProductRating
+import android.util.Log
+import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.repos.ProductsRepository
-import cd.ghost.data.DataProductsRepository
+import cd.ghost.common.IoDispatcher
+import cd.ghost.data.CartDataRepository
+import cd.ghost.data.ProductsDataRepository
+import cd.ghost.fakestore.features.catalog.mapper.ProductMapper
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DefaultCatalogsRepository @Inject constructor(
-    private val repository: DataProductsRepository
+    private val repository: ProductsDataRepository,
+    private val productMapper: ProductMapper,
+    private val cartDataRepository: CartDataRepository,
+    @IoDispatcher private val ioDispatchers: CoroutineDispatcher
 ) : ProductsRepository {
-
 
     override suspend fun getAllProducts(
         sort: String?,
         limit: Int
-    ): List<EntityProduct> {
+    ): List<ProductEntity> {
         return repository
             .getAllProducts(limit = limit, sort = sort)
-            .map {
-                EntityProduct(
-                    id = it.id,
-                    title = it.title,
-                    description = it.description,
-                    price = it.price,
-                    category = it.category,
-                    imageUrl = it.imageUrl,
-                    rating = ProductRating(
-                        rate = it.rating?.rate,
-                        count = it.rating?.count
-                    )
-                )
-            }
+            .map { productMapper.toProductEntity(it) }
     }
 
     override suspend fun getProductsByCategory(
         category: String?,
         sort: String?,
         limit: Int
-    ): List<EntityProduct> {
+    ): List<ProductEntity> {
         return repository
             .getProductsByCategory(category = category, sort = sort, limit = limit)
-            .map {
-                EntityProduct(
-                    id = it.id,
-                    title = it.title,
-                    description = it.description,
-                    price = it.price,
-                    category = it.category,
-                    imageUrl = it.imageUrl,
-                    rating = ProductRating(
-                        rate = it.rating?.rate,
-                        count = it.rating?.count
-                    )
-                )
-            }
+            .map { productMapper.toProductEntity(it) }
     }
 
-    override suspend fun getProductById(productId: Int): EntityProduct {
+    override suspend fun getProductById(productId: Int): ProductEntity {
         val response = repository.getProduct(productId)
-        return EntityProduct(
-            id = response.id,
-            title = response.title,
-            description = response.description,
-            price = response.price,
-            category = response.category,
-            imageUrl = response.imageUrl,
-            rating = ProductRating(
-                rate = response.rating?.rate,
-                count = response.rating?.count
-            )
-        )
+        return productMapper.toProductEntity(response)
+    }
+
+    override suspend fun addToCart(productId: Int) = withContext(ioDispatchers) {
+        cartDataRepository.addToCart(productId)
     }
 }

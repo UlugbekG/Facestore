@@ -54,6 +54,9 @@ class DetailFrag : Fragment(R.layout.frag_detail) {
                 findNavController().popBackStack()
             }
 
+            btnAddToCart.setOnClickListener {
+                viewModel.addToCart()
+            }
 
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -68,8 +71,8 @@ class DetailFrag : Fragment(R.layout.frag_detail) {
                             }
 
                             is Container.Success -> {
-                                Log.d(TAG, "Container Success: ${value.data}")
-                                val data = value.data
+                                Log.d(TAG, "Container Success: ${value.value}")
+                                val data = value.value
                                 contentImage.load(data.imageUrl) {
                                     crossfade(true)
                                 }

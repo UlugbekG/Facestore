@@ -1,9 +1,9 @@
 package cd.ghost.fakestore.di
 
-import cd.ghost.data.DataCartsRepository
-import cd.ghost.data.DataProductsRepository
-import cd.ghost.data.DefaultDataCartsRepository
-import cd.ghost.data.DefaultDataProductsRepository
+import cd.ghost.data.CartDataRepository
+import cd.ghost.data.ProductsDataRepository
+import cd.ghost.data.DefaultCartDataRepository
+import cd.ghost.data.DefaultProductsDataRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,10 +16,10 @@ abstract class BindsModule {
 
     @Binds
     @Singleton
-    abstract fun bindProductsRepo(repo: DefaultDataProductsRepository): DataProductsRepository
+    abstract fun bindProductsRepo(repo: DefaultProductsDataRepository): ProductsDataRepository
 
     @Binds
     @Singleton
-    abstract fun bindCartsRepo(repo: DefaultDataCartsRepository): DataCartsRepository
+    abstract fun bindCartsRepo(repo: DefaultCartDataRepository): CartDataRepository
 
 }

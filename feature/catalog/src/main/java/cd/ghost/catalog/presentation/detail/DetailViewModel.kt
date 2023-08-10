@@ -1,10 +1,12 @@
 package cd.ghost.catalog.presentation.detail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cd.ghost.catalog.R
+import cd.ghost.catalog.domain.AddToCartUseCase
 import cd.ghost.catalog.domain.GetProductByIdUseCase
-import cd.ghost.catalog.domain.entity.EntityProduct
+import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.common.Container
 import cd.ghost.common.MutableLiveEvent
 import cd.ghost.common.asLiveData
@@ -19,15 +21,18 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
+    private val addToCartUseCase: AddToCartUseCase
 ) : ViewModel() {
 
-    private val _product = MutableStateFlow<Container<EntityProduct>>(
+    private val _product = MutableStateFlow<Container<ProductEntity>>(
         value = Container.Pending
     )
     val product = _product.asStateFlow()
 
     private val _message = MutableLiveEvent<Int>()
     val message = _message.asLiveData()
+
+    private fun getId(): Int? = _product.value.getOrNull()?.id
 
     fun getProduct(productId: Int?) {
         if (productId == null) {
@@ -38,6 +43,13 @@ class DetailViewModel @Inject constructor(
             getProductByIdUseCase(productId).collectLatest {
                 _product.value = it
             }
+        }
+    }
+
+    fun addToCart() {
+        val id = getId() ?: return
+        viewModelScope.launch {
+            addToCartUseCase(id)
         }
     }
 }

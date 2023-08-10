@@ -109,6 +109,7 @@
                     android:src="@drawable/ic_bookmark_24" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddToCart"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

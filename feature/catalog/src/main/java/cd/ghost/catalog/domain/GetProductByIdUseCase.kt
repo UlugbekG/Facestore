@@ -1,6 +1,6 @@
 package cd.ghost.catalog.domain
 
-import cd.ghost.catalog.domain.entity.EntityProduct
+import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.common.Container
 import cd.ghost.common.IoDispatcher
@@ -15,7 +15,7 @@ class GetProductByIdUseCase @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
 
-    operator fun invoke(productId: Int): Flow<Container<EntityProduct>> =
+    operator fun invoke(productId: Int): Flow<Container<ProductEntity>> =
         flow {
             try {
                 val product = repository.getProductById(

@@ -10,7 +10,7 @@ import cd.ghost.catalog.domain.GetAllProductsUseCase
 import cd.ghost.catalog.domain.GetCategoriesUseCase
 import cd.ghost.catalog.domain.GetProductsByCategoryUseCase
 import cd.ghost.catalog.domain.entity.Category
-import cd.ghost.catalog.domain.entity.EntityProduct
+import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.entity.SortType
 import cd.ghost.common.Container
@@ -55,7 +55,7 @@ class ProductsViewModel @Inject constructor(
 
     private fun getProductsFromUseCases(
         filter: FilterData
-    ): LiveData<Container<List<EntityProduct>>> {
+    ): LiveData<Container<List<ProductEntity>>> {
         return if (filter.category == Category.ALL) {
             getAllProductsUseCase(
                 filter = filter
@@ -74,12 +74,12 @@ class ProductsViewModel @Inject constructor(
         _navigateToFilter.publish(_filter.value!!)
     }
 
-    override fun onClick(item: EntityProduct) {
+    override fun onClick(item: ProductEntity) {
         val id = item.id ?: return // TODO: must be fixed
         _navigateToDetail.publish(id)
     }
 
-    override fun onLongClick(item: EntityProduct) {
+    override fun onLongClick(item: ProductEntity) {
         // TODO: must be initialized. while long click product should be in cart.
     }
 

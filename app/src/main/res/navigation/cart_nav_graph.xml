@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/cartFrag"
-        android:name="cd.ghost.cart.presentation.CartFrag"
+        android:name="cd.ghost.cart.presentation.cartlist.CartFrag"
         android:label="CartFrag"
         tools:layout="@layout/frag_cart" />
 

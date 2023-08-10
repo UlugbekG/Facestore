@@ -1,6 +1,6 @@
 package cd.ghost.catalog.domain
 
-import cd.ghost.catalog.domain.entity.EntityProduct
+import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.common.Container
@@ -18,7 +18,7 @@ class GetAllProductsUseCase @Inject constructor(
 
     operator fun invoke(
         filter: FilterData
-    ): Flow<Container<List<EntityProduct>>> = flow {
+    ): Flow<Container<List<ProductEntity>>> = flow {
         try {
             val list = repository.getAllProducts(
                 sort = filter.sort.value,
