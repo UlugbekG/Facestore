@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="id_not_found">id not found!!!\n</string>
+    <string name="catalog_in_cart">In Cart</string>
+    <string name="catalog_add_to_cart">Add to Cart</string>
 </resources>

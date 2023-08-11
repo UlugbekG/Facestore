@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class DefaultCartDataRepository @Inject constructor() : CartDataRepository {
+class DefaultCartDataRepository @Inject constructor(
+
+) : CartDataRepository {
 
     private val TAG = "DefaultCartDataReposito"
 
@@ -19,7 +21,6 @@ class DefaultCartDataRepository @Inject constructor() : CartDataRepository {
         val newItem = CartItemDataEntity(productId, 1)
         list.add(newItem)
         _cart.value = list
-        Log.d(TAG, "addToCart: $list")
     }
 
     override suspend fun getCartItemById(cartId: Int): CartItemDataEntity {

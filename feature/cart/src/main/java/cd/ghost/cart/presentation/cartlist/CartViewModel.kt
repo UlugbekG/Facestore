@@ -25,7 +25,7 @@ class CartViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getCartItemsUseCase().collectLatest {
-//                _cart.value =
+
             }
         }
     }
@@ -45,11 +45,5 @@ class CartViewModel @Inject constructor(
     override fun onLongClick(cartItem: CartItem) {
         TODO("Not yet implemented")
     }
-
-//    fun addProductToCart(productId: Int, quantity: Int) {
-//        viewModelScope.launch {
-//            addItemToCartUseCase
-//        }
-//    }
 
 }

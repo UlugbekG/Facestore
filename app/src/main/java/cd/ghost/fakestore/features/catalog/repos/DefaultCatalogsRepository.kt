@@ -1,6 +1,5 @@
 package cd.ghost.fakestore.features.catalog.repos
 
-import android.util.Log
 import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.common.IoDispatcher
@@ -8,6 +7,8 @@ import cd.ghost.data.CartDataRepository
 import cd.ghost.data.ProductsDataRepository
 import cd.ghost.fakestore.features.catalog.mapper.ProductMapper
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -15,7 +16,6 @@ class DefaultCatalogsRepository @Inject constructor(
     private val repository: ProductsDataRepository,
     private val productMapper: ProductMapper,
     private val cartDataRepository: CartDataRepository,
-    @IoDispatcher private val ioDispatchers: CoroutineDispatcher
 ) : ProductsRepository {
 
     override suspend fun getAllProducts(
@@ -42,7 +42,9 @@ class DefaultCatalogsRepository @Inject constructor(
         return productMapper.toProductEntity(response)
     }
 
-    override suspend fun addToCart(productId: Int) = withContext(ioDispatchers) {
-        cartDataRepository.addToCart(productId)
+    override suspend fun getCartItemIds(): Flow<List<Int?>> {
+        return cartDataRepository
+            .getCart()
+            .map { it.map { item -> item.productId } }
     }
 }

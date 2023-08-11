@@ -1,29 +1,33 @@
 package cd.ghost.catalog.domain
 
-import cd.ghost.catalog.domain.entity.ProductEntity
+import cd.ghost.catalog.domain.entity.ProductWithCartInfo
+import cd.ghost.catalog.domain.repos.CartRepository
 import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.common.Container
-import cd.ghost.common.IoDispatcher
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetProductByIdUseCase @Inject constructor(
     private val repository: ProductsRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    private val cartRepository: CartRepository
 ) {
 
-    operator fun invoke(productId: Int): Flow<Container<ProductEntity>> =
-        flow {
+    operator fun invoke(productId: Int): Flow<Container<ProductWithCartInfo>> {
+        return cartRepository.getProductIdsInCart().map { identifiers ->
             try {
                 val product = repository.getProductById(
                     productId = productId
                 )
-                emit(Container.Success(product))
+                val productWithCartInfo = ProductWithCartInfo(
+                    product = product,
+                    isInCart = identifiers.contains(productId)
+                )
+                Container.Success(productWithCartInfo)
             } catch (e: Exception) {
-                emit(Container.Error(e))
+                Container.Error(e)
             }
-        }.flowOn(ioDispatcher)
+        }
+    }
+
 }

@@ -10,7 +10,6 @@ import javax.inject.Inject
 
 class GetCategoriesUseCase @Inject constructor(
     private val repository: FilterRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) {
 
     operator fun invoke(): Flow<List<String>> =
@@ -23,5 +22,4 @@ class GetCategoriesUseCase @Inject constructor(
             }
 
         }
-            .flowOn(ioDispatcher)
 }

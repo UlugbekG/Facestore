@@ -60,7 +60,7 @@ class DetailFrag : Fragment(R.layout.frag_detail) {
 
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                    viewModel.product.collectLatest { value ->
+                    viewModel.state.collectLatest { value ->
                         when (value) {
                             is Container.Error -> {
                                 Log.d(TAG, "Container Error: ${value.error}")
@@ -72,7 +72,7 @@ class DetailFrag : Fragment(R.layout.frag_detail) {
 
                             is Container.Success -> {
                                 Log.d(TAG, "Container Success: ${value.value}")
-                                val data = value.value
+                                val data = value.value.product
                                 contentImage.load(data.imageUrl) {
                                     crossfade(true)
                                 }
@@ -88,10 +88,8 @@ class DetailFrag : Fragment(R.layout.frag_detail) {
                                             "\n" +
                                             "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham."
                                 topAppBar.title = data.title
-                            }
-
-                            else -> {
-                                Log.d(TAG, "else block: ...")
+                                btnAddToCart.isEnabled = value.value.enableAddToCartButton
+                                btnAddToCart.text = getText(value.value.addToCartTextRes)
                             }
                         }
                     }
