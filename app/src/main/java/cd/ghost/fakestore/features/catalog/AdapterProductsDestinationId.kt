@@ -19,4 +19,5 @@ class AdapterProductsDestinationId @Inject constructor(
 
     override val actionToFilter: Int
         get() = R.id.action_productsFragment_to_filterFrag
+
 }

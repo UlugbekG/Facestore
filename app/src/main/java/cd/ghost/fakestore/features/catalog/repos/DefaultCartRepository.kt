@@ -19,8 +19,8 @@ class DefaultCartRepository @Inject constructor(
     }
 
     override suspend fun addToCart(product: ProductEntity) {
-        cartDataRepository.newCartItem(
-            product = catalogProductMapper.toProductDataEntity(product)
-        )
+        val productDataEntity = catalogProductMapper
+            .toProductDataEntity(product)
+        cartDataRepository.newCartItem(productDataEntity)
     }
 }

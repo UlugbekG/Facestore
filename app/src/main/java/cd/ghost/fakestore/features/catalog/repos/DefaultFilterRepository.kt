@@ -7,7 +7,9 @@ import javax.inject.Inject
 class DefaultFilterRepository @Inject constructor(
     private val productsDataRepository: ProductsDataRepository
 ) : FilterRepository {
+
     override suspend fun getCategories(): List<String> {
         return productsDataRepository.getCategories()
     }
+
 }

@@ -18,6 +18,8 @@
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/cart" />
             <option value="$PROJECT_DIR$/feature/catalog" />
+            <option value="$PROJECT_DIR$/feature/user" />
+            <option value="$PROJECT_DIR$/source" />
           </set>
         </option>
       </GradleProjectSettings>
