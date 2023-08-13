@@ -11,22 +11,18 @@ import javax.inject.Inject
 
 class DefaultCartRepository @Inject constructor(
     private val cartDataRepository: CartDataRepository,
-    private val cartItemMapper: CartItemMapper
+    private val cartItemMapper: CartItemMapper,
 ) : CartRepository {
 
     override fun getCart(): Flow<Container<List<CartItem>>> {
         return cartDataRepository.getCart().map { list ->
-            try {
-                val value = list.map { cartItemMapper.mapToCartItem(it) }
-                Container.Success(value)
-            } catch (e: Exception) {
-                Container.Error(e)
-            }
+            val value = list.map { cartItemMapper.toCartItem(it) }
+            Container.Success(value)
         }
     }
 
-    override suspend fun changeQuantity(cartId: Int, newQuantity: Int) {
-        cartDataRepository.changeQuantity(cartId, newQuantity)
+    override suspend fun changeQuantity(cartItem: CartItem, newQuantity: Int) {
+        cartDataRepository.changeQuantity(cartItem.productId, newQuantity)
     }
 
     override suspend fun deleteCartItems(cartItemIds: List<Int>) {
@@ -35,6 +31,6 @@ class DefaultCartRepository @Inject constructor(
 
     override suspend fun getCartItemById(cartId: Int): CartItem {
         val item = cartDataRepository.getCartItemById(cartId)
-        return cartItemMapper.mapToCartItem(item)
+        return cartItemMapper.toCartItem(item)
     }
 }

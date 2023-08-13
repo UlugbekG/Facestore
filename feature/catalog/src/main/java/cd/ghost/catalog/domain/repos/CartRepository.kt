@@ -1,5 +1,6 @@
 package cd.ghost.catalog.domain.repos
 
+import cd.ghost.catalog.domain.entity.ProductEntity
 import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
@@ -9,5 +10,5 @@ interface CartRepository {
     /**
      * Add a new product to the cart.
      */
-    suspend fun addToCart(productId: Int)
+    suspend fun addToCart(product: ProductEntity)
 }

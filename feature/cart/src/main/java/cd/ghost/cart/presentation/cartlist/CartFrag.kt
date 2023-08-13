@@ -3,6 +3,7 @@ package cd.ghost.cart.presentation.cartlist
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -12,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cd.ghost.cart.R
 import cd.ghost.cart.databinding.FragCartBinding
 import cd.ghost.common.Container
+import cd.ghost.common.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import viewBinding
 
@@ -31,9 +32,13 @@ class CartFrag : Fragment(R.layout.frag_cart) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
 
+        viewModel.message.observeEvent(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), getString(it), Toast.LENGTH_SHORT).show()
+        }
+
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.items().collectLatest {
+                viewModel.cart.observe(viewLifecycleOwner) {
                     when (it) {
                         is Container.Error -> {
                             Log.d(TAG, "onViewCreated:Error:${it.error} ")

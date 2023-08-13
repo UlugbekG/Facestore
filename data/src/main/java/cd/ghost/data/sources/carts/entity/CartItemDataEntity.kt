@@ -4,5 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CartItemDataEntity(
     @SerializedName("productId") val productId: Int?,
-    @SerializedName("quantity") val quantity: Int?
-)
+    @SerializedName("quantity") val quantity: Int?,
+    val product: ProductDataEntity
+) {
+}

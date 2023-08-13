@@ -2,6 +2,7 @@ package cd.ghost.data
 
 import android.content.res.Resources.NotFoundException
 import cd.ghost.data.sources.carts.entity.CartItemDataEntity
+import cd.ghost.data.sources.carts.entity.ProductDataEntity
 import kotlinx.coroutines.flow.StateFlow
 
 interface CartDataRepository {
@@ -14,13 +15,13 @@ interface CartDataRepository {
      */
     suspend fun getCartItemById(cartId: Int): CartItemDataEntity
 
-    suspend fun addToCart(productId: Int)
+    suspend fun newCartItem(product: ProductDataEntity)
 
     /**
      * Change cart item quantity
      * @throws NotFoundException
      */
-    suspend fun changeQuantity(cartId: Int, quantity: Int)
+    suspend fun changeQuantity(productId: Int, quantity: Int)
 
     suspend fun delete(productId: Int)
 

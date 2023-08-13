@@ -11,8 +11,8 @@ import coil.load
 
 interface CartAdapterOnClickListener {
     fun onItemClick(cartItem: CartItem)
-    fun onIncreaseBtnClick(id: Int, quantity: Int)
-    fun onDecreaseBtnClick(id: Int, quantity: Int)
+    fun onIncrementClick(cartItem: CartItem)
+    fun onDecrementClick(cartItem: CartItem)
     fun onLongClick(cartItem: CartItem)
 }
 
@@ -29,6 +29,19 @@ class CartAdapter(
                 tvQuantity.text = item.quantity.toString()
                 contentImage.load(item.product.imageUrl) {
                     crossfade(true)
+                }
+
+                btnIncrease.setOnClickListener {
+                    onClickListener.onIncrementClick(item)
+                }
+
+                btnDecrease.setOnClickListener {
+                    onClickListener.onDecrementClick(item)
+                }
+
+                itemView.setOnLongClickListener {
+                    onClickListener.onLongClick(item)
+                    true
                 }
             }
         }

@@ -8,7 +8,7 @@ interface CartRepository {
 
     fun getCart(): Flow<Container<List<CartItem>>>
 
-    suspend fun changeQuantity(cartId: Int, newQuantity: Int)
+    suspend fun changeQuantity(cartItem: CartItem, newQuantity: Int)
 
     suspend fun deleteCartItems(cartItemIds: List<Int>)
 

@@ -13,7 +13,7 @@ class AddToCartUseCase @Inject constructor(
     suspend operator fun invoke(product: ProductEntity) {
         val productIdsInCart = cartRepository.getProductIdsInCart().first()
         if (!productIdsInCart.contains(product.id)) {
-            cartRepository.addToCart(product.id!!)
+            cartRepository.addToCart(product)
         }
     }
 
