@@ -15,6 +15,7 @@ import cd.ghost.cart.databinding.FragCartBinding
 import cd.ghost.common.Container
 import cd.ghost.common.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import viewBinding
 
@@ -38,7 +39,7 @@ class CartFrag : Fragment(R.layout.frag_cart) {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.cart.observe(viewLifecycleOwner) {
+                viewModel.state.collectLatest {
                     when (it) {
                         is Container.Error -> {
                             Log.d(TAG, "onViewCreated:Error:${it.error} ")
@@ -50,7 +51,8 @@ class CartFrag : Fragment(R.layout.frag_cart) {
 
                         is Container.Success -> {
                             Log.d(TAG, "onViewCreated:Success:${it.value}")
-                            cartAdapter.submitList(it.value.items)
+                            cartAdapter.submitList(it.value.cartItems)
+                            binding.tvTotalPrice.text = it.value.totalPrice
                         }
                     }
                 }

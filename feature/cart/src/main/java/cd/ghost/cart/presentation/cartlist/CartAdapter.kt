@@ -1,5 +1,6 @@
 package cd.ghost.cart.presentation.cartlist
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,22 +11,24 @@ import cd.ghost.cart.domain.entity.CartItem
 import coil.load
 
 interface CartAdapterOnClickListener {
-    fun onItemClick(cartItem: CartItem)
-    fun onIncrementClick(cartItem: CartItem)
-    fun onDecrementClick(cartItem: CartItem)
-    fun onLongClick(cartItem: CartItem)
+    fun onItemClick(cartItem: UiCartItem)
+    fun onIncrementClick(cartItem: UiCartItem)
+    fun onDecrementClick(cartItem: UiCartItem)
+    fun onToggle(cartItem: UiCartItem)
 }
 
 class CartAdapter(
     private val onClickListener: CartAdapterOnClickListener
-) : ListAdapter<CartItem, CartAdapter.CartViewHolder>(CartDiff()) {
+) : ListAdapter<UiCartItem, CartAdapter.CartViewHolder>(CartDiff()) {
 
     inner class CartViewHolder(private val binding: ItemCartBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(item: CartItem) {
+        @SuppressLint("SetTextI18n")
+        fun onBind(item: UiCartItem) {
             binding.apply {
                 tvTitle.text = item.product.title.toString()
+                tvTotalPrice.text = "$${item.totalOriginPrice}"
                 tvQuantity.text = item.quantity.toString()
                 contentImage.load(item.product.imageUrl) {
                     crossfade(true)
@@ -40,7 +43,7 @@ class CartAdapter(
                 }
 
                 itemView.setOnLongClickListener {
-                    onClickListener.onLongClick(item)
+                    onClickListener.onToggle(item)
                     true
                 }
             }
@@ -60,14 +63,14 @@ class CartAdapter(
         holder.onBind(getItem(position))
     }
 
-    class CartDiff : DiffUtil.ItemCallback<CartItem>() {
+    class CartDiff : DiffUtil.ItemCallback<UiCartItem>() {
         override fun areItemsTheSame(
-            oldItem: CartItem, newItem: CartItem
-        ): Boolean = oldItem.productId == newItem.productId
+            oldItem: UiCartItem, newItem: UiCartItem
+        ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: CartItem,
-            newItem: CartItem
+            oldItem: UiCartItem,
+            newItem: UiCartItem
         ): Boolean = oldItem == newItem
 
     }

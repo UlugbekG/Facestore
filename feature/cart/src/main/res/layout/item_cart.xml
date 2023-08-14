@@ -5,6 +5,13 @@
     android:gravity="center"
     android:orientation="horizontal">
 
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:visibility="gone" />
+
     <ImageView
         android:id="@+id/contentImage"
         android:layout_width="100dp"
@@ -24,7 +31,20 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvTotalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:textSize="20sp" />
@@ -32,7 +52,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
             <ImageButton
@@ -40,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_plus_24" />
+                android:src="@drawable/ic_plus" />
 
             <TextView
                 android:id="@+id/tvQuantity"
@@ -53,11 +75,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_minus_24" />
+                android:src="@drawable/ic_minus" />
 
         </LinearLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>
