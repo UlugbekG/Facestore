@@ -7,6 +7,7 @@ import cd.ghost.cart.domain.ChangeCartItemQuantityUseCase
 import cd.ghost.cart.domain.GetCartItemsUseCase
 import cd.ghost.cart.domain.entity.Cart
 import cd.ghost.cart.domain.exception.QuantityOutOfRangeException
+import cd.ghost.cart.presentation.CartRouter
 import cd.ghost.common.Container
 import cd.ghost.common.MutableLiveEvent
 import cd.ghost.common.asLiveData
@@ -22,7 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val getCartItemsUseCase: GetCartItemsUseCase,
-    private val changeCartItemQuantityUseCase: ChangeCartItemQuantityUseCase
+    private val changeCartItemQuantityUseCase: ChangeCartItemQuantityUseCase,
+    private val router: CartRouter,
 ) : ViewModel(), CartAdapterOnClickListener {
 
     private val selectionModeFlow = MutableStateFlow<SelectionMode>(SelectionMode.Disabled)
@@ -54,7 +56,7 @@ class CartViewModel @Inject constructor(
     ): Container<State> {
         val showCheckbox = selectionMode is SelectionMode.Enabled
         val countOfSelectedItems = if (selectionMode is SelectionMode.Enabled) {
-            selectionMode.identifiers.size
+            selectionMode.selectedIds.size
         } else {
             0
         }
@@ -63,7 +65,7 @@ class CartViewModel @Inject constructor(
                 totalPrice = cart.totalPrice ?: "0",
                 cartItems = cart.items.map {
                     val isChecked = selectionMode is SelectionMode.Enabled
-                            && selectionMode.identifiers.contains(it.productId)
+                            && selectionMode.selectedIds.contains(it.productId)
                     UiCartItem(
                         origin = it,
                         showCheckbox = showCheckbox,
@@ -76,8 +78,17 @@ class CartViewModel @Inject constructor(
                 showDeleteAction = countOfSelectedItems > 0,
                 showDetailsAction = countOfSelectedItems == 1,
                 showEditQuantityAction = countOfSelectedItems == 1,
+                onBackPressEnabled = showCheckbox
             )
         }
+    }
+
+    private fun onBackPressed(): Boolean {
+        if (selectionModeFlow.value is SelectionMode.Enabled) {
+            selectionModeFlow.value = SelectionMode.Disabled
+            return true
+        }
+        return false
     }
 
     override fun onItemClick(cartItem: UiCartItem) {
@@ -105,13 +116,29 @@ class CartViewModel @Inject constructor(
     }
 
     override fun onToggle(cartItem: UiCartItem) {
-
+        val selectionMode = selectionModeFlow.value
+        if (selectionMode is SelectionMode.Enabled) {
+            val selectedIds = selectionMode.selectedIds
+            if (selectedIds.contains(cartItem.id)) {
+                selectedIds.remove(cartItem.id)
+            } else {
+                selectedIds.add(cartItem.id)
+            }
+            selectionModeFlow.value = SelectionMode.Enabled(selectedIds)
+        } else {
+            selectionModeFlow.value = SelectionMode.Enabled(mutableSetOf(cartItem.id))
+        }
     }
+
+    fun disableSelectionMode() {
+        selectionModeFlow.value = SelectionMode.Disabled
+    }
+
 
     sealed class SelectionMode {
         object Disabled : SelectionMode()
         class Enabled(
-            val identifiers: MutableSet<Int> = mutableSetOf()
+            val selectedIds: MutableSet<Int> = mutableSetOf()
         ) : SelectionMode()
     }
 
@@ -122,6 +149,7 @@ class CartViewModel @Inject constructor(
         val showDeleteAction: Boolean,
         val showDetailsAction: Boolean,
         val showEditQuantityAction: Boolean,
+        val onBackPressEnabled: Boolean,
     ) {
         val showActionsPanel: Boolean
             get() = showDeleteAction || showEditQuantityAction || showDetailsAction

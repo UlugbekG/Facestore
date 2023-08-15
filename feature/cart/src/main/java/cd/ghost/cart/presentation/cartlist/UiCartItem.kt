@@ -28,7 +28,7 @@ data class UiCartItem(
 
                 BigDecimal(product.price)
                     .multiply(BigDecimal(quantity))
-                    .toString()
+                    ?.toString()
 
             } catch (e: Exception) {
                 null

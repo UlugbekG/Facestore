@@ -3,6 +3,7 @@ package cd.ghost.cart.presentation.cartlist
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,9 @@ class CartAdapter(
                 contentImage.load(item.product.imageUrl) {
                     crossfade(true)
                 }
+
+                checkbox.isVisible = item.showCheckbox
+                checkbox.isChecked = item.isChecked
 
                 btnIncrease.setOnClickListener {
                     onClickListener.onIncrementClick(item)
