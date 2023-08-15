@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import cd.ghost.catalog.CatalogRouter
 import cd.ghost.catalog.R
 import cd.ghost.catalog.databinding.FragProductsBinding
 import cd.ghost.catalog.domain.entity.FilterData
@@ -38,7 +39,7 @@ class ProductsFrag : Fragment(R.layout.frag_products) {
     private val adapter by lazy { ProductsAdapter(viewModel) }
 
     @Inject
-    lateinit var destinations: ProductsDestinationId
+    lateinit var router: CatalogRouter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,15 +76,15 @@ class ProductsFrag : Fragment(R.layout.frag_products) {
         }
 
         viewModel.navigateToDetail.observeEvent(viewLifecycleOwner) { productId ->
-            destinations.provideTopNavController().navigate(
-                resId = destinations.actionToDetail,
+            router.provideTopNavController().navigate(
+                resId = router.actionToDetail,
                 args = bundleOf(DETAIL_ARG to DetailFrag.DetailArg(productId))
             )
         }
 
         viewModel.navigateToFilter.observeEvent(viewLifecycleOwner) { filterData ->
             findNavController().navigate(
-                resId = destinations.actionToFilter,
+                resId = router.actionToFilter,
                 args = bundleOf(FILTER_ARG to FilterFrag.FilterArg(filterData))
             )
         }

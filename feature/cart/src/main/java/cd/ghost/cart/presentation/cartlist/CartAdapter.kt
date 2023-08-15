@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import cd.ghost.cart.databinding.ItemCartBinding
-import cd.ghost.cart.domain.entity.CartItem
+import cd.ghost.cart.presentation.cartlist.entity.UiCartItem
 import coil.load
 
 interface CartAdapterOnClickListener {

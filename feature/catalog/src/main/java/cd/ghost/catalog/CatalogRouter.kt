@@ -1,9 +1,9 @@
-package cd.ghost.catalog.presentation.productlist
+package cd.ghost.catalog
 
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
 
-interface ProductsDestinationId {
+interface CatalogRouter {
 
     fun provideTopNavController(): NavController
 

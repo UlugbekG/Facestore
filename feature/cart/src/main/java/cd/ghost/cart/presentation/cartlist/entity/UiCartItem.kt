@@ -1,4 +1,4 @@
-package cd.ghost.cart.presentation.cartlist
+package cd.ghost.cart.presentation.cartlist.entity
 
 import cd.ghost.cart.domain.entity.CartItem
 import cd.ghost.cart.domain.entity.Product

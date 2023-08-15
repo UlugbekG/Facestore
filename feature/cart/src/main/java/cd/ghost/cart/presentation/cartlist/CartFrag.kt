@@ -30,9 +30,6 @@ class CartFrag : Fragment(R.layout.frag_cart) {
     private val binding by viewBinding<FragCartBinding>()
     private val viewModel by viewModels<CartViewModel>()
 
-    @Inject
-    lateinit var router: CartRouter
-
     private val TAG = "CartFrag"
 
     private lateinit var cartAdapter: CartAdapter

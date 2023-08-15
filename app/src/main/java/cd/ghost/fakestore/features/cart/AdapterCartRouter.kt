@@ -10,7 +10,6 @@ class AdapterCartRouter @Inject constructor(
 ) : CartRouter {
 
     override fun onBackPressedHandler() {
-        navControllerHolder.rootNavController().popBackStack()
     }
 
 }

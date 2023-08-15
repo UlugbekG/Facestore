@@ -8,6 +8,7 @@ import cd.ghost.cart.domain.GetCartItemsUseCase
 import cd.ghost.cart.domain.entity.Cart
 import cd.ghost.cart.domain.exception.QuantityOutOfRangeException
 import cd.ghost.cart.presentation.CartRouter
+import cd.ghost.cart.presentation.cartlist.entity.UiCartItem
 import cd.ghost.common.Container
 import cd.ghost.common.MutableLiveEvent
 import cd.ghost.common.asLiveData

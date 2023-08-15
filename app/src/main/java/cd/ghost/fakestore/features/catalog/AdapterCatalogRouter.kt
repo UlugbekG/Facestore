@@ -1,15 +1,15 @@
 package cd.ghost.fakestore.features.catalog
 
 import androidx.navigation.NavController
-import cd.ghost.catalog.presentation.productlist.ProductsDestinationId
+import cd.ghost.catalog.CatalogRouter
 import cd.ghost.fakestore.R
 import cd.ghost.fakestore.main.NavControllerHolder
 import javax.inject.Inject
 
 
-class AdapterProductsDestinationId @Inject constructor(
+class AdapterCatalogRouter @Inject constructor(
     private val controllerHolder: NavControllerHolder
-) : ProductsDestinationId {
+) : CatalogRouter {
 
     override fun provideTopNavController(): NavController =
         controllerHolder.rootNavController()
