@@ -48,18 +48,18 @@ dependencies {
     implementation(project(mapOf("path" to ":core:common")))
     implementation(project(mapOf("path" to ":core:presentation")))
 
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.fragment.ktx)
+    implementation(libs.coil)
+
+    // for testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.lifecycle.livedata.ktx)
-
-    implementation(libs.coil)
-
-    implementation("androidx.fragment:fragment-ktx:1.6.0")
-
+    // dependency injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 }

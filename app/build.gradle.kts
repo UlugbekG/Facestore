@@ -55,14 +55,23 @@ dependencies {
     implementation(project(mapOf("path" to ":feature:cart")))
     implementation(project(mapOf("path" to ":core:common")))
     implementation(project(mapOf("path" to ":core:presentation")))
+    implementation(project(mapOf("path" to ":core:common-impl")))
+
+    // for testing
     testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    //https://github.com/romychab/element-adapter
+    implementation(libs.element.adapter)
+    implementation(libs.coil)
 
+    // dependency injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
@@ -70,10 +79,4 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
 
-    //https://github.com/romychab/element-adapter
-    implementation(libs.element.adapter)
-    implementation(libs.coil)
-
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 }

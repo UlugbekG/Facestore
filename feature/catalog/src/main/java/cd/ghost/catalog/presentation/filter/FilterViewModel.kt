@@ -7,7 +7,7 @@ import cd.ghost.catalog.domain.GetCategoriesUseCase
 import cd.ghost.catalog.domain.entity.Category
 import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.entity.SortType
-import cd.ghost.common.asLiveData
+import cd.ghost.presentation.live.asLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

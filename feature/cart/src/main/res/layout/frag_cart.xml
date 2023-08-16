@@ -35,7 +35,16 @@
             android:textSize="18sp"
             android:textStyle="bold|italic" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:enabled="false"
+            android:text="Order" />
+
         <LinearLayout
+            android:id="@+id/actionsPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -63,14 +72,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:visibility="gone" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnOrder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="Order"
-                android:visibility="visible" />
 
         </LinearLayout>
 

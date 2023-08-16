@@ -2,20 +2,26 @@ package cd.ghost.data
 
 import android.content.res.Resources.NotFoundException
 import cd.ghost.common.IoDispatcher
+import cd.ghost.common.flow.DefaultLazyFlowSubjectFactory
 import cd.ghost.data.sources.carts.entity.CartItemDataEntity
 import cd.ghost.data.sources.carts.entity.ProductDataEntity
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DefaultCartDataRepository @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    lazyFlowSubjectFactory: DefaultLazyFlowSubjectFactory
 ) : CartDataRepository {
 
-    private val _cart = MutableStateFlow<List<CartItemDataEntity>>(emptyList())
+    private val cartSubject = lazyFlowSubjectFactory.create {
+        cartDataSource.getCart()
+    }
+
+    private val _cart = mutableListOf<List<CartItemDataEntity>>(emptyList())
     override fun getCart(): StateFlow<List<CartItemDataEntity>> = _cart
+
 
     override suspend fun newCartItem(product: ProductDataEntity) =
         withContext(ioDispatcher) {

@@ -1,19 +1,18 @@
 package cd.ghost.cart.presentation.cartlist
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import cd.ghost.cart.R
 import cd.ghost.cart.domain.ChangeCartItemQuantityUseCase
 import cd.ghost.cart.domain.GetCartItemsUseCase
 import cd.ghost.cart.domain.entity.Cart
-import cd.ghost.cart.domain.exception.QuantityOutOfRangeException
 import cd.ghost.cart.presentation.CartRouter
 import cd.ghost.cart.presentation.cartlist.entity.UiCartItem
 import cd.ghost.common.Container
-import cd.ghost.common.MutableLiveEvent
-import cd.ghost.common.asLiveData
-import cd.ghost.common.publish
+import cd.ghost.presentation.BaseViewModel
+import cd.ghost.presentation.live.MutableLiveEvent
+import cd.ghost.presentation.live.asLiveData
+import cd.ghost.presentation.live.publish
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -21,12 +20,13 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class)
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val getCartItemsUseCase: GetCartItemsUseCase,
     private val changeCartItemQuantityUseCase: ChangeCartItemQuantityUseCase,
     private val router: CartRouter,
-) : ViewModel(), CartAdapterOnClickListener {
+) : BaseViewModel(), CartAdapterOnClickListener {
 
     private val selectionModeFlow = MutableStateFlow<SelectionMode>(SelectionMode.Disabled)
     private val cartFlow = MutableStateFlow<Container<Cart>>(Container.Pending)
@@ -43,7 +43,7 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             getCartItemsUseCase()
                 .catch {
-                    _message.publish(R.string.error_messsage)
+                    _message.publish(R.string.error_message)
                 }
                 .collectLatest {
                     cartFlow.value = it
@@ -84,39 +84,23 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    private fun onBackPressed(): Boolean {
-        if (selectionModeFlow.value is SelectionMode.Enabled) {
-            selectionModeFlow.value = SelectionMode.Disabled
-            return true
-        }
-        return false
-    }
-
     override fun onItemClick(cartItem: UiCartItem) {
 
     }
 
-    override fun onIncrementClick(cartItem: UiCartItem) {
+    override fun onIncrementClick(cartItem: UiCartItem) = debounce {
         viewModelScope.launch {
-            try {
-                changeCartItemQuantityUseCase.incrementQuantity(cartItem.origin)
-            } catch (e: QuantityOutOfRangeException) {
-                _message.publish(R.string.quantity_out_of_range)
-            }
+            changeCartItemQuantityUseCase.incrementQuantity(cartItem.origin)
         }
     }
 
-    override fun onDecrementClick(cartItem: UiCartItem) {
+    override fun onDecrementClick(cartItem: UiCartItem) = debounce {
         viewModelScope.launch {
-            try {
-                changeCartItemQuantityUseCase.decrementQuantity(cartItem.origin)
-            } catch (e: Exception) {
-                _message.publish(R.string.quantity_out_of_range)
-            }
+            changeCartItemQuantityUseCase.decrementQuantity(cartItem.origin)
         }
     }
 
-    override fun onToggle(cartItem: UiCartItem) {
+    override fun onToggle(cartItem: UiCartItem) = debounce {
         val selectionMode = selectionModeFlow.value
         if (selectionMode is SelectionMode.Enabled) {
             val selectedIds = selectionMode.selectedIds

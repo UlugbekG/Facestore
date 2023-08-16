@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="cart_create_order">Create Order</string>
+    <string name="cart_total_price">Total Price: </string>
+    <string name="cart_action_delete">Delete</string>
+    <string name="cart_action_details">Details</string>
+    <string name="cart_action_cancel">Cancel</string>
+    <string name="cart_action_edit">Edit</string>
+    <string name="cart_action_save">Save</string>
     <string name="quantity_out_of_range">Quantity out of range</string>
-    <string name="error_messsage">Something went wrong!</string>
+    <string name="error_message">Something went wrong!</string>
 </resources>

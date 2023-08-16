@@ -21,7 +21,7 @@ import cd.ghost.catalog.presentation.detail.DetailFrag.Companion.DETAIL_ARG
 import cd.ghost.catalog.presentation.filter.FilterFrag
 import cd.ghost.catalog.presentation.filter.FilterFrag.Companion.FILTER_ARG
 import cd.ghost.common.Container
-import cd.ghost.common.observeEvent
+import cd.ghost.presentation.live.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

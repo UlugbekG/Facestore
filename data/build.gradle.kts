@@ -36,10 +36,6 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
     implementation(project(mapOf("path" to ":core:common")))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

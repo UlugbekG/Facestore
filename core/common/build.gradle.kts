@@ -43,11 +43,13 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
+
+    // for testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-
+    // dependency injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 }

@@ -12,6 +12,7 @@ class DefaultCartRepository @Inject constructor(
     private val cartDataRepository: CartDataRepository,
     private val catalogProductMapper: CatalogProductMapper
 ) : CartRepository {
+
     override fun getProductIdsInCart(): Flow<Set<Int?>> {
         return cartDataRepository.getCart().map { items ->
             items.map { it.productId }.toSet()

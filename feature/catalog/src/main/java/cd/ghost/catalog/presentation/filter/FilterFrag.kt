@@ -10,7 +10,7 @@ import cd.ghost.catalog.R
 import cd.ghost.catalog.databinding.FragFilterBinding
 import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.entity.SortType
-import cd.ghost.common.utils.serializable
+import cd.ghost.common.serializable
 import dagger.hilt.android.AndroidEntryPoint
 import viewBinding
 import java.io.Serializable

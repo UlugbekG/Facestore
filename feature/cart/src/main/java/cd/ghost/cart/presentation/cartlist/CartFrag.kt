@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,14 +15,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cd.ghost.cart.R
 import cd.ghost.cart.databinding.FragCartBinding
-import cd.ghost.cart.presentation.CartRouter
 import cd.ghost.common.Container
-import cd.ghost.common.observeEvent
+import cd.ghost.presentation.live.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import viewBinding
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -42,6 +41,8 @@ class CartFrag : Fragment(R.layout.frag_cart) {
             Toast.makeText(requireContext(), getString(it), Toast.LENGTH_SHORT).show()
         }
 
+        binding.setupActions()
+
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.state.collectLatest {
@@ -55,14 +56,31 @@ class CartFrag : Fragment(R.layout.frag_cart) {
                         }
 
                         is Container.Success -> {
-                            cartAdapter.submitList(it.value.cartItems)
-                            binding.tvTotalPrice.text = it.value.totalPrice
-                            onBackPressHandler(it.value.onBackPressEnabled)
+                            val state = it.value
+                            cartAdapter.submitList(state.cartItems)
+                            binding.tvTotalPrice.text = state.totalPrice
+                            binding.showDetailsAction.root.isVisible = state.showDetailsAction
+                            binding.deleteAction.root.isVisible = state.showDeleteAction
+                            binding.editQuantityAction.root.isVisible = state.showEditQuantityAction
+                            binding.actionsPanel.isVisible = state.showActionsPanel
+                            binding.btnOrder.isEnabled = state.enableCreateOrderButton
+                            onBackPressHandler(state.onBackPressEnabled)
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun FragCartBinding.setupActions() {
+        deleteAction.actionImageView.setImageResource(R.drawable.ic_delete)
+        deleteAction.actionTextView.setText(R.string.cart_action_delete)
+
+        showDetailsAction.actionImageView.setImageResource(R.drawable.ic_details)
+        showDetailsAction.actionTextView.setText(R.string.cart_action_details)
+
+        editQuantityAction.actionImageView.setImageResource(R.drawable.ic_edit)
+        editQuantityAction.actionTextView.setText(R.string.cart_action_edit)
     }
 
     private fun onBackPressHandler(onBackPressEnabled: Boolean) {

@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import cd.ghost.catalog.R
 import cd.ghost.catalog.databinding.FragDetailBinding
 import cd.ghost.common.Container
-import cd.ghost.common.observeEvent
-import cd.ghost.common.utils.serializable
+import cd.ghost.presentation.live.observeEvent
+import cd.ghost.common.serializable
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
