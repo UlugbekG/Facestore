@@ -1,30 +1,45 @@
 package cd.ghost.data
 
 import android.content.res.Resources.NotFoundException
+import cd.ghost.common.Container
 import cd.ghost.data.sources.carts.entity.CartItemDataEntity
-import cd.ghost.data.sources.carts.entity.ProductDataEntity
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.Flow
 
 interface CartDataRepository {
 
-    fun getCart(): StateFlow<List<CartItemDataEntity>>
+    fun getCart(): Flow<Container<List<CartItemDataEntity>>>
 
     /**
-     * Find cart item by its id
+     * Add a new product to the cart.
      * @throws NotFoundException
      */
-    suspend fun getCartItemById(cartId: Int): CartItemDataEntity
-
-    suspend fun newCartItem(product: ProductDataEntity)
+    suspend fun addToCart(productId: Int, quantity: Int)
 
     /**
-     * Change cart item quantity
+     * Get cart item by its ID.
      * @throws NotFoundException
      */
-    suspend fun changeQuantity(productId: Int, quantity: Int)
+    suspend fun getCartItemById(id: Int): CartItemDataEntity
 
-    suspend fun delete(productId: Int)
+    /**
+     * Delete the specified cart items.
+     */
+    suspend fun deleteCartItem(ids: List<Int>)
 
-    suspend fun clear()
+    /**
+     * Delete all items in the cart.
+     */
+    suspend fun deleteAll()
+
+    /**
+     * Change quantity of the specified cart item.
+     * @throws NotFoundException
+     */
+    suspend fun changeQuantity(cartId: Int, quantity: Int)
+
+    /**
+     * Reload the flow returned by [getCart]
+     */
+    fun reload()
 
 }

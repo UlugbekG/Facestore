@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cd.ghost.catalog.R
 import cd.ghost.catalog.domain.AddToCartUseCase
-import cd.ghost.catalog.domain.GetProductByIdUseCase
+import cd.ghost.catalog.domain.GetProductDetailUseCase
 import cd.ghost.catalog.domain.entity.ProductWithCartInfo
 import cd.ghost.common.Container
 import cd.ghost.presentation.live.MutableLiveEvent
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val getProductByIdUseCase: GetProductByIdUseCase,
+    private val getProductDetailUseCase: GetProductDetailUseCase,
     private val addToCartUseCase: AddToCartUseCase,
 ) : ViewModel() {
 
@@ -41,9 +41,10 @@ class DetailViewModel @Inject constructor(
             return
         }
         viewModelScope.launch {
-            getProductByIdUseCase(productId).collectLatest {
-                productFlow.value = it
-            }
+            getProductDetailUseCase.getProduct(productId)
+                .collectLatest {
+                    productFlow.value = it
+                }
         }
     }
 

@@ -6,6 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -13,4 +14,5 @@ abstract class CartRouterModule {
 
     @Binds
     abstract fun bindCartRouter(router: AdapterCartRouter): CartRouter
+
 }

@@ -1,73 +1,57 @@
 package cd.ghost.data
 
 import android.content.res.Resources.NotFoundException
-import cd.ghost.common.IoDispatcher
-import cd.ghost.common.flow.DefaultLazyFlowSubjectFactory
+import cd.ghost.common.Container
+import cd.ghost.common.flow.LazyFlowSubjectFactory
+import cd.ghost.data.sources.carts.CartDataSource
 import cd.ghost.data.sources.carts.entity.CartItemDataEntity
-import cd.ghost.data.sources.carts.entity.ProductDataEntity
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DefaultCartDataRepository @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    lazyFlowSubjectFactory: DefaultLazyFlowSubjectFactory
+    private val cartDataSource: CartDataSource,
+    lazyFlowSubjectFactory: LazyFlowSubjectFactory
 ) : CartDataRepository {
 
     private val cartSubject = lazyFlowSubjectFactory.create {
         cartDataSource.getCart()
     }
 
-    private val _cart = mutableListOf<List<CartItemDataEntity>>(emptyList())
-    override fun getCart(): StateFlow<List<CartItemDataEntity>> = _cart
-
-
-    override suspend fun newCartItem(product: ProductDataEntity) =
-        withContext(ioDispatcher) {
-            val list = ArrayList(_cart.value)
-            val newItem = CartItemDataEntity(product.id, 1, product)
-            list.add(newItem)
-            _cart.value = list
-        }
-
-    override suspend fun getCartItemById(cartId: Int): CartItemDataEntity =
-        withContext(ioDispatcher) {
-            val list = ArrayList(_cart.value)
-            val cart = list.find { it.productId == cartId }
-            return@withContext cart ?: throw NotFoundException()
-        }
-
-    override suspend fun changeQuantity(productId: Int, quantity: Int) =
-        withContext(ioDispatcher) {
-            val list = ArrayList(_cart.value)
-            val index = list.indexOfFirst { it.productId == productId }
-            val cartItem = list[index] ?: throw NotFoundException()
-            list[index] = CartItemDataEntity(
-                productId = productId,
-                quantity = quantity,
-                product = ProductDataEntity(
-                    id = cartItem.product.id,
-                    title = cartItem.product.title,
-                    description = cartItem.product.description,
-                    price = cartItem.product.price,
-                    category = cartItem.product.category,
-                    imageUrl = cartItem.product.imageUrl,
-                    rating = cartItem.product.rating,
-                    count = cartItem.product.count
-                ),
-            )
-            _cart.value = list
-        }
-
-    override suspend fun clear() {
-        _cart.value = emptyList()
+    override fun getCart(): Flow<Container<List<CartItemDataEntity>>> {
+        return cartSubject.listen()
     }
 
-    override suspend fun delete(productId: Int) =
-        withContext(ioDispatcher) {
-            val list = ArrayList(_cart.value)
-            list.removeAll { it.productId == productId }
-            _cart.value = list
-        }
+    override suspend fun addToCart(productId: Int, quantity: Int) {
+        cartDataSource.saveToCart(productId, quantity)
+        notifyChanges()
+    }
+
+    override suspend fun getCartItemById(id: Int): CartItemDataEntity {
+        return cartDataSource.getCart().firstOrNull { it.id == id } ?: throw NotFoundException()
+    }
+
+    override suspend fun deleteCartItem(ids: List<Int>) {
+        ids.forEach { cartDataSource.delete(it) }
+        cartSubject.newAsyncLoad(silently = true)
+    }
+
+    override suspend fun deleteAll() {
+        cartDataSource.deleteAll()
+        cartSubject.newAsyncLoad(silently = true)
+    }
+
+    override suspend fun changeQuantity(cartId: Int, quantity: Int) {
+        val cartItem = getCartItemById(cartId)
+        val productId = cartItem.productId
+        cartDataSource.saveToCart(productId ?: 0, quantity)
+        cartSubject.newAsyncLoad(silently = true)
+    }
+
+    override fun reload() {
+        cartSubject.newAsyncLoad()
+    }
+
+    private suspend fun notifyChanges() {
+        cartSubject.updateWith(Container.Success(cartDataSource.getCart()))
+    }
 }

@@ -2,7 +2,7 @@ package cd.ghost.cart.presentation.cartlist
 
 import cd.ghost.cart.R
 import cd.ghost.cart.domain.ChangeCartItemQuantityUseCase
-import cd.ghost.cart.domain.GetCartItemsUseCase
+import cd.ghost.cart.domain.GetCartUseCase
 import cd.ghost.cart.domain.entity.Cart
 import cd.ghost.cart.presentation.CartRouter
 import cd.ghost.cart.presentation.cartlist.entity.UiCartItem
@@ -12,7 +12,6 @@ import cd.ghost.presentation.live.MutableLiveEvent
 import cd.ghost.presentation.live.asLiveData
 import cd.ghost.presentation.live.publish
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -20,10 +19,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@OptIn(FlowPreview::class)
 @HiltViewModel
 class CartViewModel @Inject constructor(
-    private val getCartItemsUseCase: GetCartItemsUseCase,
+    private val getCartUseCase: GetCartUseCase,
     private val changeCartItemQuantityUseCase: ChangeCartItemQuantityUseCase,
     private val router: CartRouter,
 ) : BaseViewModel(), CartAdapterOnClickListener {
@@ -41,7 +39,7 @@ class CartViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getCartItemsUseCase()
+            getCartUseCase.getCart()
                 .catch {
                     _message.publish(R.string.error_message)
                 }
@@ -66,7 +64,7 @@ class CartViewModel @Inject constructor(
                 totalPrice = cart.totalPrice ?: "0",
                 cartItems = cart.items.map {
                     val isChecked = selectionMode is SelectionMode.Enabled
-                            && selectionMode.selectedIds.contains(it.productId)
+                            && selectionMode.selectedIds.contains(it.id)
                     UiCartItem(
                         origin = it,
                         showCheckbox = showCheckbox,

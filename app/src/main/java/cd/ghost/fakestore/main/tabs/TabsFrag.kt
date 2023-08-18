@@ -30,7 +30,7 @@ class TabsFrag : Fragment(R.layout.frag_tabs) {
         )
 
         viewModel.cartItems.observe(viewLifecycleOwner) {
-            if (it != 0) bottomNavigation.getOrCreateBadge(R.id.cartFrag2).number = it
+            if (it != null && it != 0) bottomNavigation.getOrCreateBadge(R.id.cartFrag2).number = it
         }
     }
 }

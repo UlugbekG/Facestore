@@ -15,6 +15,4 @@ interface ProductsRepository {
 
     suspend fun getProductById(productId: Int): ProductEntity
 
-    suspend fun getCartItemIds(): Flow<List<Int?>>
-
 }

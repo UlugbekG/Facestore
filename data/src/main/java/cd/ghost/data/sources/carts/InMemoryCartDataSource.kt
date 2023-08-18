@@ -1,5 +1,6 @@
 package cd.ghost.data.sources.carts
 
+import android.util.Log
 import cd.ghost.data.sources.carts.entity.CartItemDataEntity
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class InMemoryCartDataSource @Inject constructor() : CartDataSource {
         return ArrayList(cart)
     }
 
-    override suspend fun saveToCart(productId: Long, quantity: Int) {
+    override suspend fun saveToCart(productId: Int, quantity: Int) {
         val index = cart.indexOfFirst { it.productId == productId }
         val cartItem = CartItemDataEntity(
             productId, productId, quantity
@@ -27,8 +28,8 @@ class InMemoryCartDataSource @Inject constructor() : CartDataSource {
         }
     }
 
-    override suspend fun delete(cartItemId: Long) {
-        cart.removeAll { it.productId == cartItemId }
+    override suspend fun delete(cartItemId: Int) {
+        cart.removeAll { it.id == cartItemId }
     }
 
     override suspend fun deleteAll() {

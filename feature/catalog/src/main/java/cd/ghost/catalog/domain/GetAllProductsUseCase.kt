@@ -1,7 +1,7 @@
 package cd.ghost.catalog.domain
 
-import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.FilterData
+import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.common.Container
 import cd.ghost.common.IoDispatcher
@@ -16,9 +16,7 @@ class GetAllProductsUseCase @Inject constructor(
     @IoDispatcher private val dispatchersIo: CoroutineDispatcher
 ) {
 
-    operator fun invoke(
-        filter: FilterData
-    ): Flow<Container<List<ProductEntity>>> = flow {
+    operator fun invoke(filter: FilterData): Flow<Container<List<ProductEntity>>> = flow {
         try {
             val list = repository.getAllProducts(
                 sort = filter.sort.value,

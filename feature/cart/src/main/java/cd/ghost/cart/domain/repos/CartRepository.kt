@@ -6,12 +6,33 @@ import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
 
-    fun getCart(): Flow<Container<List<CartItem>>>
+    /**
+     * Change the quantity of [cartItemId] to the [newQuantity] value.
+     * @throws NotFoundException
+     */
+    suspend fun changeQuantity(cartItemId: Int, newQuantity: Int)
 
-    suspend fun changeQuantity(cartItem: CartItem, newQuantity: Int)
-
+    /**
+     * Delete the specified cart items.
+     * @throws NotFoundException
+     */
     suspend fun deleteCartItems(cartItemIds: List<Int>)
 
-    suspend fun getCartItemById(cartId: Int): CartItem
+    /**
+     * Get cart item by ID.
+     * @throws NotFoundException
+     */
+    suspend fun getCartItemById(id: Int): CartItem
+
+    /**
+     * Listen for user's Cart.
+     * @return infinite flow, always success; errors are delivered to [Container]
+     */
+    fun getCartItems(): Flow<Container<List<CartItem>>>
+
+    /**
+     * Reload Cart flow returned by [getCartItems].
+     */
+    fun reload()
 
 }

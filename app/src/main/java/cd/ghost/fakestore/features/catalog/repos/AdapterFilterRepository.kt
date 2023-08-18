@@ -4,7 +4,7 @@ import cd.ghost.catalog.domain.repos.FilterRepository
 import cd.ghost.data.ProductsDataRepository
 import javax.inject.Inject
 
-class DefaultFilterRepository @Inject constructor(
+class AdapterFilterRepository @Inject constructor(
     private val productsDataRepository: ProductsDataRepository
 ) : FilterRepository {
 

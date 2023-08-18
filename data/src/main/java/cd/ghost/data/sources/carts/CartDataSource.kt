@@ -8,9 +8,9 @@ interface CartDataSource {
 
     suspend fun getCart(): List<CartItemDataEntity>
 
-    suspend fun saveToCart(productId: Long, quantity: Int)
+    suspend fun saveToCart(productId: Int, quantity: Int)
 
-    suspend fun delete(cartItemId: Long)
+    suspend fun delete(cartItemId: Int)
 
     suspend fun deleteAll()
 

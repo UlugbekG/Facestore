@@ -3,10 +3,9 @@ package cd.ghost.cart.domain.entity
 import java.math.BigDecimal
 
 data class CartItem(
-    val cartId: Int,
-    val productId: Int,
+    val id: Int,
+    val product: Product,
     val quantity: Int,
-    val product: Product
 ) {
 
     val totalPrice: String?

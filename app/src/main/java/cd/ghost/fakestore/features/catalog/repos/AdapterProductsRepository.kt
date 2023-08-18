@@ -5,11 +5,9 @@ import cd.ghost.catalog.domain.repos.ProductsRepository
 import cd.ghost.data.CartDataRepository
 import cd.ghost.data.ProductsDataRepository
 import cd.ghost.fakestore.features.catalog.mapper.CatalogProductMapper
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class DefaultCatalogsRepository @Inject constructor(
+class AdapterProductsRepository @Inject constructor(
     private val repository: ProductsDataRepository,
     private val catalogProductMapper: CatalogProductMapper,
     private val cartDataRepository: CartDataRepository,
@@ -37,11 +35,5 @@ class DefaultCatalogsRepository @Inject constructor(
     override suspend fun getProductById(productId: Int): ProductEntity {
         val response = repository.getProduct(productId)
         return catalogProductMapper.toProductEntity(response)
-    }
-
-    override suspend fun getCartItemIds(): Flow<List<Int?>> {
-        return cartDataRepository
-            .getCart()
-            .map { it.map { item -> item.productId } }
     }
 }

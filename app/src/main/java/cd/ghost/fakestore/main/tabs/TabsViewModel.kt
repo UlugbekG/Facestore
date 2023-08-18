@@ -3,8 +3,8 @@ package cd.ghost.fakestore.main.tabs
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cd.ghost.presentation.live.asLiveData
 import cd.ghost.fakestore.main.repos.CartItemsCountRepository
+import cd.ghost.presentation.live.asLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ class TabsViewModel @Inject constructor(
             cartItemsCountRepository
                 .getCartItemsCount()
                 .collectLatest {
-                    _cartItems.value = it
+                    _cartItems.value = it.getOrNull()
                 }
         }
     }

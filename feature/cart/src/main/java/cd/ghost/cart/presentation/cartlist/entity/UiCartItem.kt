@@ -12,16 +12,11 @@ data class UiCartItem(
     val maxQuantity: Int
 ) {
 
-    val id: Int get() = origin.productId
-
+    val id: Int get() = origin.id
     val product: Product get() = origin.product
-
     val imageUrl: String? get() = product.imageUrl
-
     val quantity: Int get() = origin.quantity
-
     val name: String? get() = product.title
-
     val totalOriginPrice: String?
         get() {
             return try {

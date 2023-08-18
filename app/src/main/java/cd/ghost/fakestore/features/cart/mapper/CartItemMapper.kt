@@ -6,23 +6,25 @@ import cd.ghost.data.ProductsDataRepository
 import cd.ghost.data.sources.carts.entity.CartItemDataEntity
 import javax.inject.Inject
 
-class CartItemMapper @Inject constructor() {
+class CartItemMapper @Inject constructor(
+    private val productsDataRepository: ProductsDataRepository,
+) {
 
-    fun toCartItem(item: CartItemDataEntity): CartItem {
+    suspend fun toCartItem(item: CartItemDataEntity): CartItem {
+        val productDataEntity = productsDataRepository.getProduct(item.productId!!)
         return CartItem(
-            cartId = item.productId!!,
-            productId = item.productId!!,
-            quantity = item.quantity!!,
+            id = item.productId!!,
             product = Product(
-                id = item.product.id,
-                title = item.product.title,
-                description = item.product.description,
-                price = item.product.price,
-                category = item.product.category,
-                imageUrl = item.product.imageUrl,
-                rating = item.product.rating,
-                count = item.product.count
-            )
+                id = productDataEntity.id!!,
+                title = productDataEntity.title,
+                description = productDataEntity.description,
+                price = productDataEntity.price,
+                category = productDataEntity.category,
+                imageUrl = productDataEntity.imageUrl,
+                rating = productDataEntity.rating?.rate,
+                count = productDataEntity.rating?.count
+            ),
+            quantity = item.quantity!!,
         )
     }
 

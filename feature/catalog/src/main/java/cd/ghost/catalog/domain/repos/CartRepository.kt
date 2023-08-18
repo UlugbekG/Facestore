@@ -1,14 +1,20 @@
 package cd.ghost.catalog.domain.repos
 
-import cd.ghost.catalog.domain.entity.ProductEntity
+import cd.ghost.common.Container
 import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
 
-    fun getProductIdsInCart(): Flow<Set<Int?>>
+    fun getProductIdsInCart(): Flow<Container<Set<Int?>>>
 
     /**
      * Add a new product to the cart.
      */
-    suspend fun addToCart(product: ProductEntity)
+    suspend fun addToCart(productId: Int)
+
+    /**
+     * Reload the flow returned by [getProductIdentifiersInCart]
+     */
+    fun reload()
+
 }
