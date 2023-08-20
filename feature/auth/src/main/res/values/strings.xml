@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="def_username_john_gmail_com">john@gmail.com</string>
+    <string name="def_password_m38rmf">m38rmF$</string>
+    <string name="sign_in">Sign in</string>
+    <string name="logo">logo</string>
+</resources>

@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_cart_24"
         android:title="Cart" />
 
+    <item
+        android:id="@id/profile_nav_graph"
+        android:icon="@drawable/ic_account"
+        android:title="Profile" />
+
 </menu>

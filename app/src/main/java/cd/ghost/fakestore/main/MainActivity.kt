@@ -3,6 +3,7 @@ package cd.ghost.fakestore.main
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import cd.ghost.fakestore.R
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -15,7 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         navComponentRouter.onCreate(this)
+
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState != null) {

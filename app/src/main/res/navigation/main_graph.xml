@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/tabsFrag">
+    app:startDestination="@id/signInFragment">
 
     <fragment
         android:id="@+id/tabsFrag"
         android:name="cd.ghost.fakestore.main.tabs.TabsFrag"
         android:label="TabsFrag"
-        tools:layout="@layout/frag_tabs" >
+        tools:layout="@layout/frag_tabs">
         <action
             android:id="@+id/action_tabsFrag_to_detailFrag"
             app:destination="@id/detailFrag" />
@@ -20,5 +20,11 @@
         android:name="cd.ghost.catalog.presentation.detail.DetailFrag"
         android:label="DetailFrag"
         tools:layout="@layout/frag_detail" />
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="cd.ghost.auth.presentation.SignInFragment"
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_sign_in" />
 
 </navigation>

@@ -17,9 +17,10 @@
             <option value="$PROJECT_DIR$/core/presentation" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/auth" />
             <option value="$PROJECT_DIR$/feature/cart" />
             <option value="$PROJECT_DIR$/feature/catalog" />
-            <option value="$PROJECT_DIR$/feature/user" />
+            <option value="$PROJECT_DIR$/feature/profile" />
             <option value="$PROJECT_DIR$/source" />
           </set>
         </option>
