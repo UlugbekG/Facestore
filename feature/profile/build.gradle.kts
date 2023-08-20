@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "cd.ghost.user"
+    namespace = "cd.ghost.profile"
     compileSdk = 33
 
     defaultConfig {
@@ -25,15 +25,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+    }
+    buildFeatures{
+        viewBinding = true
     }
 }
 
 dependencies {
+
+    implementation(project(mapOf("path" to ":core:presentation")))
+
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -42,4 +48,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(libs.fragment.ktx)
+
 }

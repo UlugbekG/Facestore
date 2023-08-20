@@ -1,4 +1,4 @@
-package cd.ghost.user
+package cd.ghost.auth
 
 import org.junit.Test
 
