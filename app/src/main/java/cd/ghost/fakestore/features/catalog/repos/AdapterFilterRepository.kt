@@ -1,7 +1,7 @@
 package cd.ghost.fakestore.features.catalog.repos
 
 import cd.ghost.catalog.domain.repos.FilterRepository
-import cd.ghost.data.ProductsDataRepository
+import cd.ghost.data.repositories.ProductsDataRepository
 import javax.inject.Inject
 
 class AdapterFilterRepository @Inject constructor(

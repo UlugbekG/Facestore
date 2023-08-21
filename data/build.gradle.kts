@@ -36,7 +36,11 @@ android {
 }
 
 dependencies {
+
     implementation(project(mapOf("path" to ":core:common")))
+    implementation(project(mapOf("path" to ":source")))
+
+    // for testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

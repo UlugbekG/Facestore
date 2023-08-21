@@ -1,7 +1,7 @@
 package cd.ghost.fakestore.main.repos
 
 import cd.ghost.common.Container
-import cd.ghost.data.CartDataRepository
+import cd.ghost.data.repositories.CartDataRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

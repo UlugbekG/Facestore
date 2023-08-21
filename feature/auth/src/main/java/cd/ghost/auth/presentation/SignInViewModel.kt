@@ -3,7 +3,6 @@ package cd.ghost.auth.presentation
 import cd.ghost.auth.domain.SignInUseCase
 import cd.ghost.auth.domain.exceptions.EmptyPasswordException
 import cd.ghost.auth.domain.exceptions.EmptyUsernameException
-import cd.ghost.auth.domain.exceptions.IncorrectPasswordLengthException
 import cd.ghost.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,16 +13,19 @@ class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase
 ) : BaseViewModel() {
 
-    fun signIn(username: String?, password: String?) {
+    val message = liveEvent<String?>()
+
+    fun signIn(username: String?, password: String?) = debounce {
         viewModelScope.launch {
             try {
                 signInUseCase.signIn(username, password)
+                message.publish("Successfully")
             } catch (e: EmptyUsernameException) {
-
+                message.publish(e.message)
             } catch (e: EmptyPasswordException) {
-
-            } catch (e: IncorrectPasswordLengthException) {
-
+                message.publish(e.message)
+            } catch (e: Exception) {
+                message.publish(e.message)
             }
         }
     }

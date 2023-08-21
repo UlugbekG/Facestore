@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(project(mapOf("path" to ":data")))
+    implementation(project(mapOf("path" to ":source")))
     implementation(project(mapOf("path" to ":feature:catalog")))
     implementation(project(mapOf("path" to ":feature:cart")))
     implementation(project(mapOf("path" to ":feature:profile")))

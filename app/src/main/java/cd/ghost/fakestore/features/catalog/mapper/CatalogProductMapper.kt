@@ -2,8 +2,8 @@ package cd.ghost.fakestore.features.catalog.mapper
 
 import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.ProductRating
-import cd.ghost.data.sources.carts.entity.ProductDataEntity
-import cd.ghost.data.sources.products.entities.ResponseProduct
+import cd.ghost.source.carts.entity.ProductDataEntity
+import cd.ghost.source.products.entities.ResponseProduct
 import javax.inject.Inject
 
 class CatalogProductMapper @Inject constructor() {

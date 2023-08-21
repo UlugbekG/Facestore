@@ -1,7 +1,8 @@
 package cd.ghost.fakestore.di
 
-import cd.ghost.data.sources.carts.CartsApi
 import cd.ghost.data.sources.products.ProductsApi
+import cd.ghost.source.auth.AuthApi
+import cd.ghost.source.carts.CartsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,6 +34,12 @@ object NetworkModule {
     @Singleton
     fun provideCartsApi(retrofit: Retrofit): CartsApi {
         return retrofit.create(CartsApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthApi(retrofit: Retrofit): AuthApi {
+        return retrofit.create(AuthApi::class.java)
     }
 
     private const val BASE_URL = "https://fakestoreapi.com"

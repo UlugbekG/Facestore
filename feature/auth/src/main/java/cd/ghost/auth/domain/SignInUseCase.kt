@@ -1,5 +1,6 @@
 package cd.ghost.auth.domain
 
+import android.util.Log
 import cd.ghost.auth.domain.exceptions.EmptyPasswordException
 import cd.ghost.auth.domain.exceptions.EmptyUsernameException
 import cd.ghost.auth.domain.exceptions.IncorrectPasswordLengthException
@@ -19,7 +20,6 @@ class SignInUseCase @Inject constructor(
     suspend fun signIn(username: String?, password: String?) {
         if (username.isNullOrBlank()) throw EmptyUsernameException()
         if (password.isNullOrBlank()) throw EmptyPasswordException()
-        if (password.length < 8) throw IncorrectPasswordLengthException()
         authRepository.signIn(username, password)
     }
 

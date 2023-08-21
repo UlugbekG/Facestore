@@ -2,15 +2,13 @@ package cd.ghost.fakestore.features.catalog.repos
 
 import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.repos.ProductsRepository
-import cd.ghost.data.CartDataRepository
-import cd.ghost.data.ProductsDataRepository
+import cd.ghost.data.repositories.ProductsDataRepository
 import cd.ghost.fakestore.features.catalog.mapper.CatalogProductMapper
 import javax.inject.Inject
 
 class AdapterProductsRepository @Inject constructor(
     private val repository: ProductsDataRepository,
     private val catalogProductMapper: CatalogProductMapper,
-    private val cartDataRepository: CartDataRepository,
 ) : ProductsRepository {
 
     override suspend fun getAllProducts(

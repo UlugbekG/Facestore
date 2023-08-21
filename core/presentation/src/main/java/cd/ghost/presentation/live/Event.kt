@@ -33,3 +33,13 @@ fun <T> LiveEvent<T>.observeEvent(
         }
     }
 }
+
+fun <T> LiveEventValue<T>.observeEvent(
+    lifecycleOwner: LifecycleOwner, listener: EventListener<T>
+) {
+    this.observe(lifecycleOwner) {
+        it.get()?.let { value ->
+            listener(value)
+        }
+    }
+}

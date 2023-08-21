@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt.library)
 }
 
 android {
@@ -25,13 +27,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 dependencies {
+    // dependency injection
+    implementation(libs.hilt.android)
+    implementation(project(mapOf("path" to ":core:common")))
+    kapt(libs.hilt.android.compiler)
+
+    // networking
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
 }

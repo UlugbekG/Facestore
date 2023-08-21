@@ -2,8 +2,8 @@ package cd.ghost.fakestore.features.cart.mapper
 
 import cd.ghost.cart.domain.entity.CartItem
 import cd.ghost.cart.domain.entity.Product
-import cd.ghost.data.ProductsDataRepository
-import cd.ghost.data.sources.carts.entity.CartItemDataEntity
+import cd.ghost.data.repositories.ProductsDataRepository
+import cd.ghost.source.carts.entity.CartItemDataEntity
 import javax.inject.Inject
 
 class CartItemMapper @Inject constructor(
