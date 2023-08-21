@@ -13,11 +13,12 @@ open class BaseSource {
     suspend fun <T> catchExceptions(bloc: suspend () -> T): T = try {
         bloc()
     } catch (e: HttpException) {
-        Log.d(TAG, "catchingBlock: ${e.message()} ${e.code()}")
-        throw ErrorResponseException(e.code(), e)
+        val message = e.response()?.errorBody()?.string()
+        Log.d(TAG, "catchingBlock: $message ${e.code()}")
+        throw ErrorResponseException(code = e.code(), message = message, throwable = e)
     } catch (e: IOException) {
         Log.d(TAG, "catchingBlock: $e")
-        throw NoConnectionException()
+        throw NoConnectionException(e)
     } catch (e: Exception) {
         Log.d(TAG, "catchingBlock: $e")
         throw e

@@ -1,8 +1,10 @@
 package cd.ghost.auth.presentation
 
+import android.util.Log
 import cd.ghost.auth.domain.SignInUseCase
 import cd.ghost.auth.domain.exceptions.EmptyPasswordException
 import cd.ghost.auth.domain.exceptions.EmptyUsernameException
+import cd.ghost.common.ErrorResponseException
 import cd.ghost.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,6 +14,7 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase
 ) : BaseViewModel() {
+
 
     val message = liveEvent<String?>()
 
@@ -24,7 +27,7 @@ class SignInViewModel @Inject constructor(
                 message.publish(e.message)
             } catch (e: EmptyPasswordException) {
                 message.publish(e.message)
-            } catch (e: Exception) {
+            } catch (e: ErrorResponseException) {
                 message.publish(e.message)
             }
         }
