@@ -2,6 +2,7 @@ package cd.ghost.fakestore.main.di
 
 import cd.ghost.fakestore.main.NavComponentRouter
 import cd.ghost.fakestore.main.NavControllerHolder
+import cd.ghost.source.settings.AppSettings
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +16,10 @@ class NavigationModule {
 
     @Provides
     @Singleton
-    fun provideNavigationComponent(): NavComponentRouter {
-        return NavComponentRouter()
+    fun provideNavigationComponent(
+        appSettings: AppSettings
+    ): NavComponentRouter {
+        return NavComponentRouter(appSettings)
     }
 
     @Provides

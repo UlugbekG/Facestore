@@ -10,16 +10,24 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import cd.ghost.cart.presentation.cartlist.CartFrag
+import cd.ghost.catalog.presentation.productlist.ProductsFrag
 import cd.ghost.fakestore.R
+import cd.ghost.profile.presentation.ProfileFragment
+import cd.ghost.source.settings.AppSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 
-
-class NavComponentRouter : NavControllerHolder {
+class NavComponentRouter(private val appSettings: AppSettings) : NavControllerHolder {
 
     private val TAG = "NavComponentRouter"
 
+    private var navController: NavController? = null
+    private var homeNavController: NavController? = null
+    private var cartNavController: NavController? = null
+    private var profileNavController: NavController? = null
     private var activity: FragmentActivity? = null
     private val onBackPressHandlers = LinkedHashSet<() -> Boolean>()
     private var fragmentDialogs: Int = 0
@@ -31,9 +39,14 @@ class NavComponentRouter : NavControllerHolder {
             v: View,
             savedInstanceState: Bundle?
         ) {
-            super.onFragmentViewCreated(fm, f, v, savedInstanceState)
-            Log.d(TAG, "onFragmentViewCreated: $f")
             // you can find any nav controller from this callback from fragment
+            super.onFragmentViewCreated(fm, f, v, savedInstanceState)
+            if (f is ProductsFrag && homeNavController == null)
+                homeNavController = f.findNavController()
+            if (f is CartFrag && cartNavController == null)
+                cartNavController = f.findNavController()
+            if (f is ProfileFragment && profileNavController == null)
+                profileNavController = f.findNavController()
         }
 
         override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
@@ -47,11 +60,29 @@ class NavComponentRouter : NavControllerHolder {
         }
     }
 
+    private val destinationListener =
+        NavController.OnDestinationChangedListener { controller, destination, arguments ->
+            Log.d(TAG, "Destination: ${destination.label}")
+        }
+
     fun onCreate(activity: FragmentActivity) {
         this.activity = activity
+
+        val fragmentManager = activity.supportFragmentManager
+        val navHost =
+            fragmentManager.findFragmentById(R.id.main_nav_host_container) as NavHostFragment
+        val navController = navHost.navController
+
+        val graph = navController.navInflater.inflate(R.navigation.main_graph)
+        graph.setStartDestination(if (isSignedIn()) R.id.tabsFrag else R.id.signInFragment)
+        navController.graph = graph
+
+        onNavControllerActivated(navController)
+
         activity
             .supportFragmentManager
             .registerFragmentLifecycleCallbacks(fragmentListener, true)
+
         setupBackHandlers()
     }
 
@@ -59,10 +90,12 @@ class NavComponentRouter : NavControllerHolder {
         activity
             ?.supportFragmentManager
             ?.unregisterFragmentLifecycleCallbacks(fragmentListener)
-        this.activity = null
+        navController?.removeOnDestinationChangedListener(destinationListener)
+
+        clear()
     }
 
-    override fun registerBackHandler(scope: CoroutineScope, handler: () -> Boolean) {
+    fun registerBackHandler(scope: CoroutineScope, handler: () -> Boolean) {
         scope.launch {
             suspendCancellableCoroutine { continuation ->
                 onBackPressHandlers.add(handler)
@@ -101,26 +134,44 @@ class NavComponentRouter : NavControllerHolder {
             )
     }
 
-    override fun rootNavController(): NavController {
-        val fragmentManager = activity?.supportFragmentManager
-        val navHost =
-            fragmentManager?.findFragmentById(R.id.main_nav_host_container) as NavHostFragment
-        return navHost.navController
+    fun navigateUp(): Boolean {
+        return navController?.navigateUp() ?: false
     }
 
-    override fun requireActivity(): FragmentActivity? {
-        return activity
+    private fun onNavControllerActivated(navController: NavController) {
+        if (this.navController == navController) return
+        navController.addOnDestinationChangedListener(destinationListener)
+        this.navController = navController
     }
+
+    private fun isSignedIn(): Boolean = appSettings.getCurrentToken() != null
+
+    override fun rootNavController(): NavController? = navController
+
+    override fun getHomeNavController(): NavController? = homeNavController
+
+    override fun getCartsNavController(): NavController? = cartNavController
+
+    override fun getProfileNavController(): NavController? = profileNavController
 
     fun onSaveInstanceState(bundle: Bundle) {
-        bundle.putBundle(KEY_NAVIGATION, rootNavController().saveState())
+        bundle.putBundle(KEY_NAVIGATION, navController?.saveState())
     }
 
     fun onRestoreInstanceState(bundle: Bundle) {
-        rootNavController().restoreState(bundle)
+        navController?.restoreState(bundle)
+    }
+
+    private fun clear() {
+        navController = null
+        homeNavController = null
+        cartNavController = null
+        profileNavController = null
+        this.activity = null
     }
 
     private companion object {
         const val KEY_NAVIGATION = "navigationState"
     }
 }
+

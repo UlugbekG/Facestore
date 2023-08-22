@@ -16,16 +16,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        setContentView(R.layout.activity_main)
 
         navComponentRouter.onCreate(this)
-
-        setContentView(R.layout.activity_main)
 
         if (savedInstanceState != null) {
             navComponentRouter.onRestoreInstanceState(savedInstanceState)
         }
 
+    }
+
+    override fun onNavigateUp(): Boolean {
+        return navComponentRouter.navigateUp() || super.onNavigateUp()
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {

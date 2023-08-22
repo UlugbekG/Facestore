@@ -1,15 +1,11 @@
 package cd.ghost.catalog
 
-import androidx.annotation.IdRes
-import androidx.navigation.NavController
+import android.os.Bundle
 
 interface CatalogRouter {
 
-    fun provideTopNavController(): NavController
+    fun navigateToDetailScreen(args: Bundle)
 
-    @get:IdRes
-    val actionToDetail: Int
+    fun navigateToFilterScreen(args: Bundle)
 
-    @get:IdRes
-    val actionToFilter: Int
 }

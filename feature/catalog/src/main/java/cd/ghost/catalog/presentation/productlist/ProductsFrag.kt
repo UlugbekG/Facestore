@@ -76,15 +76,13 @@ class ProductsFrag : Fragment(R.layout.frag_products) {
         }
 
         viewModel.navigateToDetail.observeEvent(viewLifecycleOwner) { productId ->
-            router.provideTopNavController().navigate(
-                resId = router.actionToDetail,
+            router.navigateToDetailScreen(
                 args = bundleOf(DETAIL_ARG to DetailFrag.DetailArg(productId))
             )
         }
 
         viewModel.navigateToFilter.observeEvent(viewLifecycleOwner) { filterData ->
-            findNavController().navigate(
-                resId = router.actionToFilter,
+            router.navigateToFilterScreen(
                 args = bundleOf(FILTER_ARG to FilterFrag.FilterArg(filterData))
             )
         }

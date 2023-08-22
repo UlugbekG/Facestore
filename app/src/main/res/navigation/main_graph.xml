@@ -12,7 +12,11 @@
         tools:layout="@layout/frag_tabs">
         <action
             android:id="@+id/action_tabsFrag_to_detailFrag"
-            app:destination="@id/detailFrag" />
+            app:destination="@id/detailFrag"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stationary"
+            app:popEnterAnim="@anim/stationary"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
 
     <fragment

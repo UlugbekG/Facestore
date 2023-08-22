@@ -1,6 +1,6 @@
 package cd.ghost.fakestore.features.catalog
 
-import androidx.navigation.NavController
+import android.os.Bundle
 import cd.ghost.catalog.CatalogRouter
 import cd.ghost.fakestore.R
 import cd.ghost.fakestore.main.NavControllerHolder
@@ -8,16 +8,21 @@ import javax.inject.Inject
 
 
 class AdapterCatalogRouter @Inject constructor(
-    private val controllerHolder: NavControllerHolder
+    private val navControllerHolder: NavControllerHolder
 ) : CatalogRouter {
 
-    override fun provideTopNavController(): NavController =
-        controllerHolder.rootNavController()
+    override fun navigateToDetailScreen(args: Bundle) {
+        navControllerHolder.rootNavController()?.navigate(
+            resId = R.id.action_tabsFrag_to_detailFrag,
+            args = args
+        )
+    }
 
-    override val actionToDetail: Int
-        get() = R.id.action_tabsFrag_to_detailFrag
-
-    override val actionToFilter: Int
-        get() = R.id.action_productsFragment_to_filterFrag
+    override fun navigateToFilterScreen(args: Bundle) {
+        navControllerHolder.getHomeNavController()?.navigate(
+            resId = R.id.action_productsFragment_to_filterFrag,
+            args = args
+        )
+    }
 
 }
