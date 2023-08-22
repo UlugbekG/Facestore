@@ -38,9 +38,6 @@ class ProductsFrag : Fragment(R.layout.frag_products) {
     private val binding by viewBinding<FragProductsBinding>()
     private val adapter by lazy { ProductsAdapter(viewModel) }
 
-    @Inject
-    lateinit var router: CatalogRouter
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
@@ -73,18 +70,6 @@ class ProductsFrag : Fragment(R.layout.frag_products) {
                     }
                 }
             }
-        }
-
-        viewModel.navigateToDetail.observeEvent(viewLifecycleOwner) { productId ->
-            router.navigateToDetailScreen(
-                args = bundleOf(DETAIL_ARG to DetailFrag.DetailArg(productId))
-            )
-        }
-
-        viewModel.navigateToFilter.observeEvent(viewLifecycleOwner) { filterData ->
-            router.navigateToFilterScreen(
-                args = bundleOf(FILTER_ARG to FilterFrag.FilterArg(filterData))
-            )
         }
 
         viewModel.errorMessage.observeEvent(viewLifecycleOwner) {

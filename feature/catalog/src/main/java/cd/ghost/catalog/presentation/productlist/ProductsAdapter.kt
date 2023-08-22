@@ -9,6 +9,7 @@ import cd.ghost.catalog.R
 import cd.ghost.catalog.databinding.ItemProductBinding
 import cd.ghost.catalog.domain.entity.ProductEntity
 import coil.load
+import coil.transform.CircleCropTransformation
 
 interface OnClickListener {
     fun onClick(item: ProductEntity)
@@ -27,7 +28,7 @@ class ProductsAdapter constructor(
                 ivProduct.load(item.imageUrl) {
                     crossfade(true)
                     placeholder(R.drawable.image_place_holder)
-//                    transformations(CircleCropTransformation())
+                    transformations(CircleCropTransformation())
                 }
                 tvTitle.text = item.title
                 tvPrice.text = "$${item.price}"

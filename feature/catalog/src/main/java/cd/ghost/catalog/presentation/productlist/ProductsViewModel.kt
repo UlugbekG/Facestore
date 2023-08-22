@@ -1,18 +1,22 @@
 package cd.ghost.catalog.presentation.productlist
 
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
+import cd.ghost.catalog.CatalogRouter
 import cd.ghost.catalog.domain.GetAllProductsUseCase
 import cd.ghost.catalog.domain.GetCategoriesUseCase
 import cd.ghost.catalog.domain.GetProductsByCategoryUseCase
 import cd.ghost.catalog.domain.entity.Category
-import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.FilterData
+import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.SortType
+import cd.ghost.catalog.presentation.detail.DetailFrag
+import cd.ghost.catalog.presentation.filter.FilterFrag
 import cd.ghost.common.Container
 import cd.ghost.presentation.live.MutableLiveEvent
 import cd.ghost.presentation.live.asLiveData
@@ -25,6 +29,7 @@ class ProductsViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
     private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase,
     private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val router: CatalogRouter
 ) : ViewModel(), OnClickListener {
 
     private val _filter = MutableLiveData<FilterData>()
@@ -34,12 +39,6 @@ class ProductsViewModel @Inject constructor(
 
     private val _errorMessage = MutableLiveEvent<String>()
     val errorMessage = _errorMessage.asLiveData()
-
-    private val _navigateToDetail = MutableLiveEvent<Int>()
-    val navigateToDetail = _navigateToDetail.asLiveData()
-
-    private val _navigateToFilter = MutableLiveEvent<FilterData>()
-    val navigateToFilter = _navigateToFilter.asLiveData()
 
     init {
         initialFilterState()
@@ -68,19 +67,20 @@ class ProductsViewModel @Inject constructor(
     }
 
     fun navigateToFilter() {
-        if (_filter.value == null) {
-            initialFilterState()
-        }
-        _navigateToFilter.publish(_filter.value!!)
+        val filterData = _filter.value ?: return
+        router.navigateToFilterScreen(
+            args = bundleOf(FilterFrag.FILTER_ARG to FilterFrag.FilterArg(filterData))
+        )
     }
 
     override fun onClick(item: ProductEntity) {
-        val id = item.id ?: return // TODO: must be fixed
-        _navigateToDetail.publish(id)
+        router.navigateToDetailScreen(
+            args = bundleOf(DetailFrag.DETAIL_ARG to DetailFrag.DetailArg(item.id))
+        )
     }
 
     override fun onLongClick(item: ProductEntity) {
-        // TODO: must be initialized. while long click product should be in cart.
+
     }
 
     fun setFilterResult(result: FilterData?) {
