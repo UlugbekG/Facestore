@@ -29,6 +29,10 @@
         android:id="@+id/signInFragment"
         android:name="cd.ghost.auth.presentation.SignInFragment"
         android:label="SignInFragment"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_tabsFrag"
+            app:destination="@id/tabsFrag" />
+    </fragment>
 
 </navigation>

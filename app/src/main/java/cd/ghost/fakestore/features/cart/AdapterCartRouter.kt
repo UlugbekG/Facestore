@@ -1,7 +1,7 @@
 package cd.ghost.fakestore.features.cart
 
 import cd.ghost.cart.presentation.CartRouter
-import cd.ghost.fakestore.main.NavControllerHolder
+import cd.ghost.fakestore.main.navigation.NavControllerHolder
 import javax.inject.Inject
 
 

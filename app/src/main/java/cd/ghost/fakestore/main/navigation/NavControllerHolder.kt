@@ -1,10 +1,10 @@
-package cd.ghost.fakestore.main
+package cd.ghost.fakestore.main.navigation
 
 import androidx.navigation.NavController
 
 interface NavControllerHolder {
 
-    fun rootNavController(): NavController?
+    fun getRootNavController(): NavController?
 
     fun getHomeNavController(): NavController?
 

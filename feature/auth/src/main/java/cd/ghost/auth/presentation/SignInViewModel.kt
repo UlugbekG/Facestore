@@ -1,6 +1,7 @@
 package cd.ghost.auth.presentation
 
 import android.util.Log
+import cd.ghost.auth.AuthRouter
 import cd.ghost.auth.domain.SignInUseCase
 import cd.ghost.auth.domain.exceptions.EmptyPasswordException
 import cd.ghost.auth.domain.exceptions.EmptyUsernameException
@@ -12,9 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val signInUseCase: SignInUseCase
+    private val signInUseCase: SignInUseCase,
+    private val authRouter: AuthRouter
 ) : BaseViewModel() {
-
 
     val message = liveEvent<String?>()
 
@@ -22,7 +23,7 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 signInUseCase.signIn(username, password)
-                message.publish("Successfully")
+                authRouter.navigateToTabs()
             } catch (e: EmptyUsernameException) {
                 message.publish(e.message)
             } catch (e: EmptyPasswordException) {

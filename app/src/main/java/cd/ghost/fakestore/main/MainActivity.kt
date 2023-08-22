@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import cd.ghost.fakestore.R
+import cd.ghost.fakestore.main.navigation.NavComponentRouter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

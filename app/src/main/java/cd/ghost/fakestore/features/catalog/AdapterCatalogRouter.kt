@@ -3,7 +3,7 @@ package cd.ghost.fakestore.features.catalog
 import android.os.Bundle
 import cd.ghost.catalog.CatalogRouter
 import cd.ghost.fakestore.R
-import cd.ghost.fakestore.main.NavControllerHolder
+import cd.ghost.fakestore.main.navigation.NavControllerHolder
 import javax.inject.Inject
 
 
@@ -12,7 +12,7 @@ class AdapterCatalogRouter @Inject constructor(
 ) : CatalogRouter {
 
     override fun navigateToDetailScreen(args: Bundle) {
-        navControllerHolder.rootNavController()?.navigate(
+        navControllerHolder.getRootNavController()?.navigate(
             resId = R.id.action_tabsFrag_to_detailFrag,
             args = args
         )

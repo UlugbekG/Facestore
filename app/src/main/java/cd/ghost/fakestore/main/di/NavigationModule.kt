@@ -1,7 +1,9 @@
 package cd.ghost.fakestore.main.di
 
-import cd.ghost.fakestore.main.NavComponentRouter
-import cd.ghost.fakestore.main.NavControllerHolder
+import cd.ghost.common.AppRestarter
+import cd.ghost.fakestore.main.navigation.DefAppRestarter
+import cd.ghost.fakestore.main.navigation.NavComponentRouter
+import cd.ghost.fakestore.main.navigation.NavControllerHolder
 import cd.ghost.source.settings.AppSettings
 import dagger.Module
 import dagger.Provides
@@ -28,6 +30,13 @@ class NavigationModule {
         navComponent: NavComponentRouter
     ): NavControllerHolder {
         return navComponent
+    }
+
+    @Provides
+    fun provideAppRestarter(
+        navComponent: NavComponentRouter
+    ): AppRestarter {
+        return DefAppRestarter(navComponent)
     }
 
 }

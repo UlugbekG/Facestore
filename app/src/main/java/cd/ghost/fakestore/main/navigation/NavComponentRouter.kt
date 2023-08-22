@@ -1,4 +1,4 @@
-package cd.ghost.fakestore.main
+package cd.ghost.fakestore.main.navigation
 
 import android.os.Bundle
 import android.util.Log
@@ -68,15 +68,8 @@ class NavComponentRouter(private val appSettings: AppSettings) : NavControllerHo
     fun onCreate(activity: FragmentActivity) {
         this.activity = activity
 
-        val fragmentManager = activity.supportFragmentManager
-        val navHost =
-            fragmentManager.findFragmentById(R.id.main_nav_host_container) as NavHostFragment
-        val navController = navHost.navController
-
-        val graph = navController.navInflater.inflate(R.navigation.main_graph)
-        graph.setStartDestination(if (isSignedIn()) R.id.tabsFrag else R.id.signInFragment)
-        navController.graph = graph
-
+        val navController = findRootNavController()
+        prepareRootGraph(navController)
         onNavControllerActivated(navController)
 
         activity
@@ -134,8 +127,28 @@ class NavComponentRouter(private val appSettings: AppSettings) : NavControllerHo
             )
     }
 
+    fun restartApp() {
+        appSettings.setCurrentToken(null)
+        val navController = findRootNavController()
+        prepareRootGraph(navController)
+        onNavControllerActivated(navController)
+    }
+
     fun navigateUp(): Boolean {
         return navController?.navigateUp() ?: false
+    }
+
+    private fun findRootNavController(): NavController {
+        val fragmentManager = activity?.supportFragmentManager
+        val navHost =
+            fragmentManager?.findFragmentById(R.id.main_nav_host_container) as NavHostFragment
+        return navHost.navController
+    }
+
+    private fun prepareRootGraph(navController: NavController) {
+        val graph = navController.navInflater.inflate(R.navigation.main_graph)
+        graph.setStartDestination(if (isSignedIn()) R.id.tabsFrag else R.id.signInFragment)
+        navController.graph = graph
     }
 
     private fun onNavControllerActivated(navController: NavController) {
@@ -146,7 +159,7 @@ class NavComponentRouter(private val appSettings: AppSettings) : NavControllerHo
 
     private fun isSignedIn(): Boolean = appSettings.getCurrentToken() != null
 
-    override fun rootNavController(): NavController? = navController
+    override fun getRootNavController(): NavController? = navController
 
     override fun getHomeNavController(): NavController? = homeNavController
 
