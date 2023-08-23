@@ -17,11 +17,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     private val binding by viewBinding<FragmentSignInBinding>()
     private val viewModel by viewModels<SignInViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {

@@ -6,7 +6,7 @@
     android:background="?colorSurface"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.detail.DetailFrag">
+    tools:context=".presentation.detail.DetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
             app:layout_collapseMode="pin"
-            app:navigationIcon="@drawable/ic_backspace_24" />
+            app:navigationIcon="@drawable/arrow_back" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -107,7 +107,7 @@
                     android:layout_marginRight="4dp"
                     android:background="@drawable/category_back"
                     android:padding="6dp"
-                    android:src="@drawable/ic_bookmark_24" />
+                    android:src="@drawable/ic_star_24" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAddToCart"

@@ -7,5 +7,9 @@
     <include app:graph="@navigation/home_nav_graph" />
     <include app:graph="@navigation/profile_nav_graph" />
     <include app:graph="@navigation/cart_nav_graph" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="cd.ghost.catalog.presentation.favorites.FavoritesFragment"
+        android:label="FavoritesFragment" />
 
 </navigation>

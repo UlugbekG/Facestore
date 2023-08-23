@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/productsFragment"
-        android:name="cd.ghost.catalog.presentation.productlist.ProductsFrag"
+        android:name="cd.ghost.catalog.presentation.productlist.ProductsFragment"
         android:label="ProductsFragment"
-        tools:layout="@layout/frag_products">
+        tools:layout="@layout/fragment_products">
         <action
             android:id="@+id/action_productsFragment_to_filterFrag"
             app:destination="@id/filterFrag"
@@ -22,8 +22,8 @@
 
     <fragment
         android:id="@+id/filterFrag"
-        android:name="cd.ghost.catalog.presentation.filter.FilterFrag"
+        android:name="cd.ghost.catalog.presentation.filter.FilterFragment"
         android:label="FilterFrag"
-        tools:layout="@layout/frag_filter" />
+        tools:layout="@layout/fragment_filter" />
 
 </navigation>

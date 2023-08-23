@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import cd.ghost.cart.presentation.cartlist.CartFrag
-import cd.ghost.catalog.presentation.productlist.ProductsFrag
+import cd.ghost.catalog.presentation.productlist.ProductsFragment
 import cd.ghost.fakestore.R
 import cd.ghost.profile.presentation.ProfileFragment
 import cd.ghost.source.settings.AppSettings
@@ -41,7 +41,7 @@ class NavComponentRouter(private val appSettings: AppSettings) : NavControllerHo
         ) {
             // you can find any nav controller from this callback from fragment
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
-            if (f is ProductsFrag && homeNavController == null)
+            if (f is ProductsFragment && homeNavController == null)
                 homeNavController = f.findNavController()
             if (f is CartFrag && cartNavController == null)
                 cartNavController = f.findNavController()

@@ -15,12 +15,11 @@ import cd.ghost.catalog.domain.entity.Category
 import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.SortType
-import cd.ghost.catalog.presentation.detail.DetailFrag
-import cd.ghost.catalog.presentation.filter.FilterFrag
+import cd.ghost.catalog.presentation.detail.DetailFragment
+import cd.ghost.catalog.presentation.filter.FilterFragment
 import cd.ghost.common.Container
 import cd.ghost.presentation.live.MutableLiveEvent
 import cd.ghost.presentation.live.asLiveData
-import cd.ghost.presentation.live.publish
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -69,13 +68,13 @@ class ProductsViewModel @Inject constructor(
     fun navigateToFilter() {
         val filterData = _filter.value ?: return
         router.navigateToFilterScreen(
-            args = bundleOf(FilterFrag.FILTER_ARG to FilterFrag.FilterArg(filterData))
+            args = bundleOf(FilterFragment.FILTER_ARG to FilterFragment.FilterArg(filterData))
         )
     }
 
     override fun onClick(item: ProductEntity) {
         router.navigateToDetailScreen(
-            args = bundleOf(DetailFrag.DETAIL_ARG to DetailFrag.DetailArg(item.id))
+            args = bundleOf(DetailFragment.DETAIL_ARG to DetailFragment.DetailArg(item.id))
         )
     }
 

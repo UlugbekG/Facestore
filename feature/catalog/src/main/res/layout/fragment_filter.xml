@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.filter.FilterFrag">
+    tools:context=".presentation.filter.FilterFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:navigationIcon="@drawable/ic_backspace_24"
+            app:navigationIcon="@drawable/arrow_back"
             app:title="Filter" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -81,7 +81,9 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:gravity="center"
-                android:text="10" />
+                android:text="10"
+                android:textColor="@drawable/text_color_selector"
+                android:textStyle="bold" />
 
             <Space
                 android:layout_width="8dp"
@@ -95,7 +97,9 @@
                 android:background="@drawable/radio_flat_selector"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text="20" />
+                android:text="20"
+                android:textColor="@drawable/text_color_selector"
+                android:textStyle="bold" />
 
         </RadioGroup>
 
@@ -130,7 +134,9 @@
                 android:background="@drawable/radio_flat_selector"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text="Ascending" />
+                android:text="Ascending"
+                android:textColor="@drawable/text_color_selector"
+                android:textStyle="bold" />
 
             <Space
                 android:layout_width="8dp"
@@ -145,7 +151,9 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:gravity="center"
-                android:text="Descending" />
+                android:text="Descending"
+                android:textColor="@drawable/text_color_selector"
+                android:textStyle="bold" />
 
         </RadioGroup>
 

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Fakestore</string>
+    <string name="home">Home</string>
+    <string name="cart">Cart</string>
+    <string name="favorites">Favorites</string>
+    <string name="profile">Profile</string>
 </resources>

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/tabsFrag"
-        android:name="cd.ghost.fakestore.main.tabs.TabsFrag"
+        android:name="cd.ghost.fakestore.main.tabs.TabsFragment"
         android:label="TabsFrag"
-        tools:layout="@layout/frag_tabs">
+        tools:layout="@layout/fragment_tabs">
         <action
             android:id="@+id/action_tabsFrag_to_detailFrag"
             app:destination="@id/detailFrag"
@@ -21,9 +21,9 @@
 
     <fragment
         android:id="@+id/detailFrag"
-        android:name="cd.ghost.catalog.presentation.detail.DetailFrag"
+        android:name="cd.ghost.catalog.presentation.detail.DetailFragment"
         android:label="DetailFrag"
-        tools:layout="@layout/frag_detail" />
+        tools:layout="@layout/fragment_detail" />
 
     <fragment
         android:id="@+id/signInFragment"

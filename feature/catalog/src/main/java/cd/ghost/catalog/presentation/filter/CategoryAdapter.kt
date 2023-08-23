@@ -1,7 +1,6 @@
 package cd.ghost.catalog.presentation.filter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -32,18 +31,17 @@ class CategoryAdapter(
     inner class ViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val TAG = "CategoryAdapter"
         fun onBind(item: String?) {
             binding.apply {
                 root.text = item
                 if (item == selectedCategory.value) {
                     root.setBackgroundResource(R.drawable.category_back)
+                    root.setTextColor(root.context.getColor(cd.ghost.presentation.R.color.white))
                 } else {
                     root.setBackgroundResource(R.drawable.normal_back)
+                    root.setTextColor(root.context.getColor(cd.ghost.presentation.R.color.dark_gray))
                 }
             }
-
-            Log.d(TAG, "onBind: ")
 
             itemView.setOnClickListener {
                 onClick(item?.getCategoryBy() ?: Category.ALL)

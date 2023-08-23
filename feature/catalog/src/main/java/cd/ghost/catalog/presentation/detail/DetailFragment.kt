@@ -11,11 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import cd.ghost.catalog.R
-import cd.ghost.catalog.databinding.FragDetailBinding
+import cd.ghost.catalog.databinding.FragmentDetailBinding
 import cd.ghost.common.Container
 import cd.ghost.presentation.live.observeEvent
 import cd.ghost.common.serializable
 import coil.load
+import com.google.android.material.elevation.SurfaceColors
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ import viewBinding
 import java.io.Serializable
 
 @AndroidEntryPoint
-class DetailFrag : Fragment(R.layout.frag_detail) {
+class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val TAG = "DetailFrag"
 
@@ -31,7 +32,7 @@ class DetailFrag : Fragment(R.layout.frag_detail) {
         val productId: Int
     ) : Serializable
 
-    private val binding by viewBinding<FragDetailBinding>()
+    private val binding by viewBinding<FragmentDetailBinding>()
     private val viewModel by viewModels<DetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,10 @@ class DetailFrag : Fragment(R.layout.frag_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().window.navigationBarColor =
+            SurfaceColors.SURFACE_0.getColor(requireContext())
+
         binding.apply {
 
             viewModel.message.observeEvent(viewLifecycleOwner) {

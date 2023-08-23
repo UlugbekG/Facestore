@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import cd.ghost.catalog.R
-import cd.ghost.catalog.databinding.FragFilterBinding
+import cd.ghost.catalog.databinding.FragmentFilterBinding
 import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.entity.SortType
 import cd.ghost.common.serializable
@@ -17,7 +17,7 @@ import java.io.Serializable
 
 
 @AndroidEntryPoint
-class FilterFrag : Fragment(R.layout.frag_filter) {
+class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private val TAG = "FilterFrag"
 
@@ -25,7 +25,7 @@ class FilterFrag : Fragment(R.layout.frag_filter) {
         val filterData: FilterData
     ) : Serializable
 
-    private val binding by viewBinding<FragFilterBinding>()
+    private val binding by viewBinding<FragmentFilterBinding>()
     private val viewModel by viewModels<FilterViewModel>()
     private lateinit var categoryAdapter: CategoryAdapter
 
