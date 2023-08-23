@@ -1,4 +1,4 @@
-package cd.ghost.data
+package cd.ghost.data.repositories
 
 import cd.ghost.data.repositories.AuthDataRepository
 import cd.ghost.source.auth.AuthSource

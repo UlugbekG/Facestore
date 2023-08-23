@@ -28,7 +28,6 @@ class ProductsAdapter constructor(
                 ivProduct.load(item.imageUrl) {
                     crossfade(true)
                     placeholder(R.drawable.image_place_holder)
-                    transformations(CircleCropTransformation())
                 }
                 tvTitle.text = item.title
                 tvPrice.text = "$${item.price}"

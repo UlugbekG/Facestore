@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import cd.ghost.catalog.R
 import cd.ghost.catalog.databinding.FragmentDetailBinding
 import cd.ghost.common.Container
-import cd.ghost.presentation.live.observeEvent
 import cd.ghost.common.serializable
+import cd.ghost.presentation.live.observeEvent
 import coil.load
 import com.google.android.material.elevation.SurfaceColors
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,6 +63,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 viewModel.addToCart()
             }
 
+            btnFavorite.setOnClickListener {
+                viewModel.favoriteAction()
+            }
+
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                     viewModel.state.collectLatest { value ->
@@ -77,10 +81,18 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
                             is Container.Success -> {
                                 Log.d(TAG, "Container Success: ${value.value}")
+
                                 val data = value.value.product
+
                                 contentImage.load(data.imageUrl) {
                                     crossfade(true)
                                 }
+
+                                val isInFavorite = value.value.isInFavorite
+                                btnFavorite.setImageResource(
+                                    if (isInFavorite) R.drawable.ic_star_24
+                                    else R.drawable.ic_star_off_24
+                                )
 
                                 tvTitle.text = data.title
                                 tvPrice.text = "$${data.price}"

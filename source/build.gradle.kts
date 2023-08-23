@@ -36,9 +36,12 @@ android {
 }
 
 dependencies {
+
+    implementation(project(mapOf("path" to ":core:common")))
+
+
     // dependency injection
     implementation(libs.hilt.android)
-    implementation(project(mapOf("path" to ":core:common")))
     kapt(libs.hilt.android.compiler)
 
     // networking

@@ -1,7 +1,6 @@
-package cd.ghost.catalog.domain.repos
+package cd.ghost.catalog.domain.repositories
 
 import cd.ghost.catalog.domain.entity.ProductEntity
-import kotlinx.coroutines.flow.Flow
 
 interface ProductsRepository {
 

@@ -1,6 +1,6 @@
 package cd.ghost.fakestore.features.catalog.repos
 
-import cd.ghost.catalog.domain.repos.CartRepository
+import cd.ghost.catalog.domain.repositories.CartRepository
 import cd.ghost.common.Container
 import cd.ghost.data.repositories.CartDataRepository
 import kotlinx.coroutines.flow.Flow

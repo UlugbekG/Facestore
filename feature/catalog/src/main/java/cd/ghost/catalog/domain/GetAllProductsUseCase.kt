@@ -2,7 +2,7 @@ package cd.ghost.catalog.domain
 
 import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.entity.ProductEntity
-import cd.ghost.catalog.domain.repos.ProductsRepository
+import cd.ghost.catalog.domain.repositories.ProductsRepository
 import cd.ghost.common.Container
 import cd.ghost.common.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher

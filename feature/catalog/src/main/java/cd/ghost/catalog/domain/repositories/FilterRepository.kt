@@ -1,4 +1,4 @@
-package cd.ghost.catalog.domain.repos
+package cd.ghost.catalog.domain.repositories
 
 interface FilterRepository {
 

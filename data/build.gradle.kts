@@ -40,6 +40,10 @@ dependencies {
     implementation(project(mapOf("path" to ":core:common")))
     implementation(project(mapOf("path" to ":source")))
 
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    kapt(libs.room.kapt)
+    implementation(libs.room.ktx)
     // for testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

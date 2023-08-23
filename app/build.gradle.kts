@@ -70,6 +70,10 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    kapt(libs.room.kapt)
+    implementation(libs.room.ktx)
     //https://github.com/romychab/element-adapter
     implementation(libs.element.adapter)
     implementation(libs.coil)

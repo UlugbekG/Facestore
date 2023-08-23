@@ -1,4 +1,4 @@
-package cd.ghost.data
+package cd.ghost.data.repositories
 
 import cd.ghost.data.repositories.ProductsDataRepository
 import cd.ghost.data.sources.products.ProductsApi

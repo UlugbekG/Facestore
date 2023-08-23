@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import cd.ghost.catalog.R
 import cd.ghost.catalog.domain.AddToCartUseCase
 import cd.ghost.catalog.domain.GetProductDetailUseCase
-import cd.ghost.catalog.domain.entity.ProductWithCartInfo
+import cd.ghost.catalog.domain.ManageFavoritesUseCase
+import cd.ghost.catalog.domain.entity.ProductWithInfo
 import cd.ghost.common.Container
 import cd.ghost.presentation.live.MutableLiveEvent
 import cd.ghost.presentation.live.asLiveData
@@ -22,10 +23,11 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val getProductDetailUseCase: GetProductDetailUseCase,
     private val addToCartUseCase: AddToCartUseCase,
+    private val manageFavoritesUseCase: ManageFavoritesUseCase,
 ) : ViewModel() {
 
     private val addToCartInProgressFlow = MutableStateFlow(false)
-    private val productFlow = MutableStateFlow<Container<ProductWithCartInfo>>(Container.Pending)
+    private val productFlow = MutableStateFlow<Container<ProductWithInfo>>(Container.Pending)
     val state = combine(
         productFlow,
         addToCartInProgressFlow,
@@ -48,6 +50,17 @@ class DetailViewModel @Inject constructor(
         }
     }
 
+    fun favoriteAction() {
+        viewModelScope.launch {
+            val state = state.first().getOrNull() ?: return@launch
+            if (state.isInFavorite) {
+                manageFavoritesUseCase.remove(state.product)
+            } else {
+                manageFavoritesUseCase.save(state.product)
+            }
+        }
+    }
+
     fun addToCart() = viewModelScope.launch {
         val state = state.first().getOrNull() ?: return@launch
         try {
@@ -59,27 +72,28 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun merge(
-        productWithCartInfo: Container<ProductWithCartInfo>,
+        productWithInfo: Container<ProductWithInfo>,
         isAddToCartInProgress: Boolean
     ): Container<State> {
-        return productWithCartInfo.map { productWithCartInfo ->
+        return productWithInfo.map { productWithCartInfo ->
             State(
-                productWithCartInfo = productWithCartInfo,
+                productWithInfo = productWithCartInfo,
                 addToCartInProgress = isAddToCartInProgress
             )
         }
     }
 
     data class State(
-        private val productWithCartInfo: ProductWithCartInfo,
+        private val productWithInfo: ProductWithInfo,
         private val addToCartInProgress: Boolean,
     ) {
-        val product = productWithCartInfo.product
+        val product = productWithInfo.product
         val showAddToCartProgress: Boolean get() = addToCartInProgress
         val showAddToCartButton: Boolean get() = !addToCartInProgress
-        val enableAddToCartButton: Boolean get() = !productWithCartInfo.isInCart
+        val enableAddToCartButton: Boolean get() = !productWithInfo.isInCart
+        val isInFavorite: Boolean get() = productWithInfo.favorite
         val addToCartTextRes: Int
-            get() = if (productWithCartInfo.isInCart) {
+            get() = if (productWithInfo.isInCart) {
                 R.string.catalog_in_cart
             } else {
                 R.string.catalog_add_to_cart

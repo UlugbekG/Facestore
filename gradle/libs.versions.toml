@@ -19,6 +19,8 @@ navigation-fragment-ktx = "2.6.0"
 fragment-ktx = "1.6.1"
 lifecycle-livedata-ktx = "2.6.1"
 jetbrains-coroutines = "1.7.1"
+room-version = "2.5.2"
+
 
 [libraries]
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-viewmodel-ktx" }
@@ -43,6 +45,10 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 jetbrains-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "jetbrains-coroutines"}
+room-runtime = { module ="androidx.room:room-runtime", version.ref = "room-version" }
+room-compiler = { module ="androidx.room:room-compiler", version.ref = "room-version" }
+room-kapt = { module ="androidx.room:room-compiler", version.ref = "room-version" }
+room-ktx = { module ="androidx.room:room-ktx", version.ref = "room-version" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -1,6 +1,6 @@
 package cd.ghost.catalog.domain
 
-import cd.ghost.catalog.domain.repos.FilterRepository
+import cd.ghost.catalog.domain.repositories.FilterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

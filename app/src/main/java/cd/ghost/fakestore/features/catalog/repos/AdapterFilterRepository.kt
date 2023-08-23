@@ -1,6 +1,6 @@
 package cd.ghost.fakestore.features.catalog.repos
 
-import cd.ghost.catalog.domain.repos.FilterRepository
+import cd.ghost.catalog.domain.repositories.FilterRepository
 import cd.ghost.data.repositories.ProductsDataRepository
 import javax.inject.Inject
 

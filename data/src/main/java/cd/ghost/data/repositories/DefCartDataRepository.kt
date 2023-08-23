@@ -1,9 +1,8 @@
-package cd.ghost.data
+package cd.ghost.data.repositories
 
 import android.content.res.Resources.NotFoundException
 import cd.ghost.common.Container
 import cd.ghost.common.flow.LazyFlowSubjectFactory
-import cd.ghost.data.repositories.CartDataRepository
 import cd.ghost.source.carts.CartDataSource
 import cd.ghost.source.carts.entity.CartItemDataEntity
 import kotlinx.coroutines.flow.Flow

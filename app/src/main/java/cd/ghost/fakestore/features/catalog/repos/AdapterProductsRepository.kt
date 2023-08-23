@@ -1,7 +1,7 @@
 package cd.ghost.fakestore.features.catalog.repos
 
 import cd.ghost.catalog.domain.entity.ProductEntity
-import cd.ghost.catalog.domain.repos.ProductsRepository
+import cd.ghost.catalog.domain.repositories.ProductsRepository
 import cd.ghost.data.repositories.ProductsDataRepository
 import cd.ghost.fakestore.features.catalog.mapper.CatalogProductMapper
 import javax.inject.Inject
