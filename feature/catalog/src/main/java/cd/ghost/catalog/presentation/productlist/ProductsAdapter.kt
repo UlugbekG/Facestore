@@ -9,11 +9,9 @@ import cd.ghost.catalog.R
 import cd.ghost.catalog.databinding.ItemProductBinding
 import cd.ghost.catalog.domain.entity.ProductEntity
 import coil.load
-import coil.transform.CircleCropTransformation
 
 interface OnClickListener {
     fun onClick(item: ProductEntity)
-    fun onLongClick(item: ProductEntity)
 }
 
 class ProductsAdapter constructor(

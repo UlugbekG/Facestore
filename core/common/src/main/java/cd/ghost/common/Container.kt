@@ -57,3 +57,11 @@ sealed class Container<out T> {
         }
     }
 }
+
+inline fun <T> wrap(block: () -> T): Container<T> {
+    return try {
+        Container.Success(block())
+    } catch (e: Exception) {
+        Container.Error(e)
+    }
+}

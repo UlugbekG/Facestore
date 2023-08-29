@@ -1,5 +1,6 @@
 package cd.ghost.data.repositories
 
+import cd.ghost.common.Container
 import cd.ghost.source.products.entities.ResponseProduct
 
 
@@ -9,15 +10,15 @@ interface ProductsDataRepository {
         category: String?,
         limit: Int?,
         sort: String?
-    ): List<ResponseProduct>
+    ): Container<List<ResponseProduct>>
 
     suspend fun getAllProducts(
         limit: Int?,
         sort: String?
-    ): List<ResponseProduct>
+    ): Container<List<ResponseProduct>>
 
     suspend fun getProduct(productId: Int): ResponseProduct
 
-    suspend fun getCategories(): List<String>
+    suspend fun getCategories(): Container<List<String>>
 
 }

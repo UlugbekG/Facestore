@@ -7,9 +7,11 @@ import cd.ghost.catalog.domain.GetCategoriesUseCase
 import cd.ghost.catalog.domain.entity.Category
 import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.entity.SortType
+import cd.ghost.common.Container
 import cd.ghost.presentation.live.asLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,8 +20,8 @@ class FilterViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase
 ) : ViewModel() {
 
-    private val _categories = MutableLiveData<List<String?>>()
-    val categories = _categories.asLiveData()
+    private val _state = MutableLiveData<Container<State>>()
+    val state = _state.asLiveData()
 
     private val _filter = MutableLiveData<FilterData>()
     val filter = _filter.asLiveData()
@@ -36,17 +38,22 @@ class FilterViewModel @Inject constructor(
         _filter.value = filter!!
     }
 
+    init {
+        _state.value = Container.Pending
+    }
+
     fun getFilterData(): FilterData? = _filter.value
 
     fun fetchCategories() {
         viewModelScope.launch {
-            getCategoriesUseCase()
-                .collectLatest {
-                    val categories = ArrayList<String>().apply {
-                        add("all")
-                        addAll(it)
+            getCategoriesUseCase.getCategories()
+                .map { container ->
+                    container.map {
+                        State(it)
                     }
-                    _categories.value = categories
+                }
+                .collectLatest {
+                    _state.value = it
                 }
         }
     }
@@ -69,5 +76,8 @@ class FilterViewModel @Inject constructor(
         )
     }
 
+    data class State(
+        val categories: List<String>
+    )
 }
 

@@ -1,8 +1,8 @@
 package cd.ghost.catalog.presentation.filter
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,6 +11,7 @@ import cd.ghost.catalog.databinding.FragmentFilterBinding
 import cd.ghost.catalog.domain.entity.FilterData
 import cd.ghost.catalog.domain.entity.SortType
 import cd.ghost.common.serializable
+import cd.ghost.presentation.view.observe
 import dagger.hilt.android.AndroidEntryPoint
 import viewBinding
 import java.io.Serializable
@@ -18,8 +19,6 @@ import java.io.Serializable
 
 @AndroidEntryPoint
 class FilterFragment : Fragment(R.layout.fragment_filter) {
-
-    private val TAG = "FilterFrag"
 
     class FilterArg(
         val filterData: FilterData
@@ -33,7 +32,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         super.onCreate(savedInstanceState)
         arguments.let {
             val filter = it?.serializable<FilterArg>(FILTER_ARG)?.filterData
-            Log.d(TAG, "CurrentFilter: $filter")
             viewModel.setFilter(filter)
         }
         viewModel.fetchCategories()
@@ -41,40 +39,37 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupCategoryRecyclerView()
-        observeCategoryList()
+        binding.setupCategoryRecyclerView()
+        binding.observeState()
+        binding.setupListeners()
         observeFilter()
-        setupListeners()
     }
 
-    private fun setupListeners() {
-        binding.apply {
-            appBar.setNavigationOnClickListener {
-                findNavController().popBackStack()
-            }
-            btn10.setOnClickListener {
-                viewModel.setItemSize(10)
-            }
+    private fun FragmentFilterBinding.setupListeners() {
+        appBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+        btn10.setOnClickListener {
+            viewModel.setItemSize(10)
+        }
 
-            btn20.setOnClickListener {
-                viewModel.setItemSize(20)
-            }
+        btn20.setOnClickListener {
+            viewModel.setItemSize(20)
+        }
 
-            btnAsc.setOnClickListener {
-                viewModel.setSortId(SortType.ASC)
-            }
+        btnAsc.setOnClickListener {
+            viewModel.setSortId(SortType.ASC)
+        }
 
-            btnDesc.setOnClickListener {
-                viewModel.setSortId(SortType.DESC)
-            }
-            btnApply.setOnClickListener {
-                applyFilter()
-            }
+        btnDesc.setOnClickListener {
+            viewModel.setSortId(SortType.DESC)
+        }
+        btnApply.setOnClickListener {
+            applyFilter()
         }
     }
 
     private fun applyFilter() {
-        Log.d(TAG, "setupListeners: ${viewModel.getFilterData()}")
         findNavController()
             .previousBackStackEntry
             ?.savedStateHandle
@@ -91,17 +86,22 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
     }
 
-    private fun observeCategoryList() {
-        viewModel.categories.observe(viewLifecycleOwner) { categories ->
-            categoryAdapter.setList(categories)
+    private fun FragmentFilterBinding.observeState() {
+        filterResultView.observe(viewLifecycleOwner, viewModel.state) { state ->
+            val apply = ArrayList<String>().apply {
+                add("all")
+                addAll(state.categories)
+            }
+            categoryAdapter.setList(apply)
+            linearContainer.isVisible = true
         }
     }
 
-    private fun setupCategoryRecyclerView() {
+    private fun FragmentFilterBinding.setupCategoryRecyclerView() {
         categoryAdapter = CategoryAdapter { value ->
             viewModel.setCategory(value)
         }
-        binding.recyclerCategory.adapter = categoryAdapter
+        recyclerCategory.adapter = categoryAdapter
     }
 
     private fun FilterData.getItemSizeRadioBtn(): Int = when {

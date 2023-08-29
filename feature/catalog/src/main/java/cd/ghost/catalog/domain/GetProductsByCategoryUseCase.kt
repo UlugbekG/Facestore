@@ -11,19 +11,14 @@ import javax.inject.Inject
 class GetProductsByCategoryUseCase @Inject constructor(
     private val repository: ProductsRepository,
 ) {
-
     operator fun invoke(
         filter: FilterData
     ): Flow<Container<List<ProductEntity>>> = flow {
-        try {
-            val list = repository.getProductsByCategory(
-                sort = filter.sort.value,
-                limit = filter.itemsSize,
-                category = filter.category.value
-            )
-            emit(Container.Success(list))
-        } catch (e: Exception) {
-            emit(Container.Error(e))
-        }
+        val list = repository.getProductsByCategory(
+            sort = filter.sort.value,
+            limit = filter.itemsSize,
+            category = filter.category.value
+        )
+        emit(list)
     }
 }

@@ -1,11 +1,12 @@
 package cd.ghost.catalog
 
-import android.os.Bundle
+import cd.ghost.catalog.presentation.detail.DetailFragment
+import cd.ghost.catalog.presentation.filter.FilterFragment
 
 interface CatalogRouter {
 
-    fun navigateToDetailScreen(args: Bundle)
+    fun navigateToDetailScreen(args: DetailFragment.DetailArg)
 
-    fun navigateToFilterScreen(args: Bundle)
+    fun navigateToFilterScreen(args: FilterFragment.FilterArg)
 
 }

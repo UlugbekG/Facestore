@@ -13,11 +13,11 @@ class CategoryAdapter(
     private val onClick: (Category) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    private val list = ArrayList<String?>()
+    private val list = ArrayList<String>()
     private var selectedCategory: Category = Category.ALL
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(newList: List<String?>) {
+    fun setList(newList: List<String>) {
         list.addAll(newList)
         notifyDataSetChanged()
     }

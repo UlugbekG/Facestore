@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 
 class DefaultCoreProvider(
     context: Context,
+    override val appRestarter: AppRestarter,
     override val resources: Resources = AndroidResources(context),
     override val globalScope: CoroutineScope = createDefaultGlobalScope(),
 ) : CoreProvider

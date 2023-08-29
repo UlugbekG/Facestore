@@ -1,4 +1,4 @@
-package cd.ghost.data.database.entity
+package cd.ghost.data.database.favorites.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

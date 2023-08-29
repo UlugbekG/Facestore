@@ -1,5 +1,6 @@
 package cd.ghost.catalog.domain
 
+import android.content.res.Resources.NotFoundException
 import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.ProductWithInfo
 import cd.ghost.catalog.domain.repositories.CartRepository
@@ -8,6 +9,7 @@ import cd.ghost.catalog.domain.repositories.ProductsRepository
 import cd.ghost.common.Container
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -17,7 +19,10 @@ class GetProductDetailUseCase @Inject constructor(
     private val favoritesRepository: FavoritesRepository
 ) {
 
-    fun getProduct(productId: Int): Flow<Container<ProductWithInfo>> {
+    fun getProduct(productId: Int?): Flow<Container<ProductWithInfo>> {
+        if (productId == null) {
+            return flowOf(Container.Error(NotFoundException()))
+        }
         return combine(
             cartRepository.getProductIdsInCart(),
             favoritesRepository.getProducts(),

@@ -1,7 +1,6 @@
 package cd.ghost.data.repositories
 
-import cd.ghost.common.Container
-import cd.ghost.data.database.entity.ProductDataEntity
+import cd.ghost.data.database.favorites.entity.ProductDataEntity
 import kotlinx.coroutines.flow.Flow
 
 interface FavoritesDataRepository {

@@ -1,6 +1,5 @@
 package cd.ghost.catalog.presentation.productlist
 
-import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,7 +26,6 @@ import javax.inject.Inject
 class ProductsViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
     private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase,
-    private val getCategoriesUseCase: GetCategoriesUseCase,
     private val router: CatalogRouter
 ) : ViewModel(), OnClickListener {
 
@@ -51,35 +49,22 @@ class ProductsViewModel @Inject constructor(
         )
     }
 
+    fun reload() = initialFilterState()
+
     private fun getProductsFromUseCases(
         filter: FilterData
     ): LiveData<Container<List<ProductEntity>>> {
-        return if (filter.category == Category.ALL) {
-            getAllProductsUseCase(
-                filter = filter
-            ).asLiveData()
-        } else {
-            getProductsByCategoryUseCase(
-                filter = filter
-            ).asLiveData()
-        }
+        return if (filter.category == Category.ALL) getAllProductsUseCase(filter).asLiveData()
+        else getProductsByCategoryUseCase(filter).asLiveData()
     }
 
     fun navigateToFilter() {
         val filterData = _filter.value ?: return
-        router.navigateToFilterScreen(
-            args = bundleOf(FilterFragment.FILTER_ARG to FilterFragment.FilterArg(filterData))
-        )
+        router.navigateToFilterScreen(FilterFragment.FilterArg(filterData))
     }
 
     override fun onClick(item: ProductEntity) {
-        router.navigateToDetailScreen(
-            args = bundleOf(DetailFragment.DETAIL_ARG to DetailFragment.DetailArg(item.id))
-        )
-    }
-
-    override fun onLongClick(item: ProductEntity) {
-
+        router.navigateToDetailScreen(DetailFragment.DetailArg(item.id))
     }
 
     fun setFilterResult(result: FilterData?) {

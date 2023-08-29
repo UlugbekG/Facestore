@@ -1,10 +1,10 @@
-package cd.ghost.data.database
+package cd.ghost.data.database.favorites
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import cd.ghost.data.database.entity.ProductDataEntity
+import cd.ghost.data.database.favorites.entity.ProductDataEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

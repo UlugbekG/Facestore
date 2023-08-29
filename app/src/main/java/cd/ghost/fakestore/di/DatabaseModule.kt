@@ -3,7 +3,7 @@ package cd.ghost.fakestore.di
 import android.content.Context
 import androidx.room.Room
 import cd.ghost.data.database.AppDatabase
-import cd.ghost.data.database.FavoritesDao
+import cd.ghost.data.database.favorites.FavoritesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

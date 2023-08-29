@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Facestore.Co</string>
     <string name="core_presentation_try_again">Try Again</string>
+    <string name="core_presentation_logout">logout</string>
 </resources>

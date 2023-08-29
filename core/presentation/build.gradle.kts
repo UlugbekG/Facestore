@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt.library)
 }
 
 android {
@@ -51,4 +53,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation(libs.fragment.ktx)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 }

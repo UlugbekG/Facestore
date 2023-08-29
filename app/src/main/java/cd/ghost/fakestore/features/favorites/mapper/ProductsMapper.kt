@@ -2,7 +2,7 @@ package cd.ghost.fakestore.features.favorites.mapper
 
 import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.ProductRating
-import cd.ghost.data.database.entity.ProductDataEntity
+import cd.ghost.data.database.favorites.entity.ProductDataEntity
 import javax.inject.Inject
 
 class ProductsMapper @Inject constructor() {

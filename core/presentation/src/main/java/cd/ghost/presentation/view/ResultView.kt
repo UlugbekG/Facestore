@@ -8,11 +8,16 @@ import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import cd.ghost.common.AuthException
+import cd.ghost.common.CommonUi
 import cd.ghost.common.Container
+import cd.ghost.common.Core
+import cd.ghost.presentation.R
 import cd.ghost.presentation.databinding.CorePresentationResultViewBinding
 import cd.ghost.presentation.live.LiveValue
 import cd.ghost.presentation.observeStateOn
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class ResultView @JvmOverloads constructor(
     context: Context,
@@ -52,11 +57,11 @@ class ResultView @JvmOverloads constructor(
         }
 
         binding.tryAgainButton.setOnClickListener {
-//            if (isAuthError()) {
-//                Core.appRestarter.restartApp()
-//            } else {
-//                tryAgainListener?.invoke()
-//            }
+            if (isAuthError()) {
+                Core.appRestarter.restartApp()
+            } else {
+                tryAgainListener?.invoke()
+            }
             tryAgainListener?.invoke()
         }
 
@@ -80,11 +85,13 @@ class ResultView @JvmOverloads constructor(
         if (container is Container.Error) {
             val exception = container.error
             binding.resultErrorTextView.text = exception.message
-//            binding.tryAgainButton.setText(if (isAuthError()) {
-//                R.string.core_presentation_logout
-//            } else {
-//                R.string.core_presentation_try_again
-//            })
+            binding.tryAgainButton.setText(
+                if (isAuthError()) {
+                    R.string.core_presentation_logout
+                } else {
+                    R.string.core_presentation_try_again
+                }
+            )
 
             children.forEach {
                 if (it != binding.root) {
@@ -94,9 +101,9 @@ class ResultView @JvmOverloads constructor(
         }
     }
 
-//    private fun isAuthError() = container.let {
-//        it is Container.Error && it.exception is AuthException
-//    }
+    private fun isAuthError() = container.let {
+        it is Container.Error && it.error is AuthException
+    }
 
 }
 

@@ -2,7 +2,8 @@ package cd.ghost.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import cd.ghost.data.database.entity.ProductDataEntity
+import cd.ghost.data.database.favorites.entity.ProductDataEntity
+import cd.ghost.data.database.favorites.FavoritesDao
 
 @Database(
     entities = [ProductDataEntity::class],

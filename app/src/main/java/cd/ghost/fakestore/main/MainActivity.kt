@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import cd.ghost.common.ActivityRequired
 import cd.ghost.fakestore.R
 import cd.ghost.fakestore.main.navigation.NavComponentRouter
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,10 +16,15 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var navComponentRouter: NavComponentRouter
 
+    @Inject
+    lateinit var activityRequiredSet: Set<@JvmSuppressWildcards ActivityRequired>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.activity_main)
+
+        activityRequiredSet.forEach { it.onCreate(this) }
 
         navComponentRouter.onCreate(this)
 
@@ -26,6 +32,11 @@ class MainActivity : AppCompatActivity() {
             navComponentRouter.onRestoreInstanceState(savedInstanceState)
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activityRequiredSet.forEach { it.onStarted() }
     }
 
     override fun onNavigateUp(): Boolean {
@@ -37,8 +48,14 @@ class MainActivity : AppCompatActivity() {
         navComponentRouter.onSaveInstanceState(outState)
     }
 
+    override fun onStop() {
+        super.onStop()
+        activityRequiredSet.forEach { it.onStopped() }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        activityRequiredSet.forEach { it.onDestroy() }
         navComponentRouter.onDestroy()
     }
 

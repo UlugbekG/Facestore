@@ -1,8 +1,8 @@
 package cd.ghost.data.repositories
 
 import cd.ghost.common.IoDispatcher
-import cd.ghost.data.database.FavoritesDao
-import cd.ghost.data.database.entity.ProductDataEntity
+import cd.ghost.data.database.favorites.FavoritesDao
+import cd.ghost.data.database.favorites.entity.ProductDataEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

@@ -34,14 +34,7 @@ class DetailViewModel @Inject constructor(
         ::merge
     )
 
-    private val _message = MutableLiveEvent<Int>()
-    val message = _message.asLiveData()
-
     fun getProduct(productId: Int?) {
-        if (productId == null) {
-            _message.publish(R.string.id_not_found)
-            return
-        }
         viewModelScope.launch {
             getProductDetailUseCase.getProduct(productId)
                 .collectLatest {
@@ -73,12 +66,12 @@ class DetailViewModel @Inject constructor(
 
     private fun merge(
         productWithInfo: Container<ProductWithInfo>,
-        isAddToCartInProgress: Boolean
+        isAddToCartInProgress: Boolean,
     ): Container<State> {
         return productWithInfo.map { productWithCartInfo ->
             State(
                 productWithInfo = productWithCartInfo,
-                addToCartInProgress = isAddToCartInProgress
+                addToCartInProgress = isAddToCartInProgress,
             )
         }
     }
@@ -92,6 +85,7 @@ class DetailViewModel @Inject constructor(
         val showAddToCartButton: Boolean get() = !addToCartInProgress
         val enableAddToCartButton: Boolean get() = !productWithInfo.isInCart
         val isInFavorite: Boolean get() = productWithInfo.favorite
+
         val addToCartTextRes: Int
             get() = if (productWithInfo.isInCart) {
                 R.string.catalog_in_cart
