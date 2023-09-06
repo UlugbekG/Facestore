@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import cd.ghost.cart.presentation.cartlist.CartFrag
+import cd.ghost.cart.presentation.cartlist.CartFragment
 import cd.ghost.catalog.presentation.productlist.ProductsFragment
 import cd.ghost.fakestore.R
 import cd.ghost.profile.presentation.ProfileFragment
@@ -43,7 +43,7 @@ class NavComponentRouter(private val appSettings: AppSettings) : NavControllerHo
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
             if (f is ProductsFragment && homeNavController == null)
                 homeNavController = f.findNavController()
-            if (f is CartFrag && cartNavController == null)
+            if (f is CartFragment && cartNavController == null)
                 cartNavController = f.findNavController()
             if (f is ProfileFragment && profileNavController == null)
                 profileNavController = f.findNavController()

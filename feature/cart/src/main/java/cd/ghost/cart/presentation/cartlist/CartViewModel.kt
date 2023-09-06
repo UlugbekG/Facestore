@@ -74,6 +74,7 @@ class CartViewModel @Inject constructor(
                     )
                 },
                 enableCreateOrderButton = cart.items.isNotEmpty(),
+                visibilityOrderButton = cart.items.isNotEmpty(),
                 showDeleteAction = countOfSelectedItems > 0,
                 showDetailsAction = countOfSelectedItems == 1,
                 showEditQuantityAction = countOfSelectedItems == 1,
@@ -117,6 +118,10 @@ class CartViewModel @Inject constructor(
         selectionModeFlow.value = SelectionMode.Disabled
     }
 
+    fun navigateToOrderScreen() {
+        router.navigateToOrderScreen()
+    }
+
 
     sealed class SelectionMode {
         object Disabled : SelectionMode()
@@ -129,6 +134,7 @@ class CartViewModel @Inject constructor(
         val cartItems: List<UiCartItem>,
         val totalPrice: String,
         val enableCreateOrderButton: Boolean,
+        val visibilityOrderButton: Boolean,
         val showDeleteAction: Boolean,
         val showDetailsAction: Boolean,
         val showEditQuantityAction: Boolean,
