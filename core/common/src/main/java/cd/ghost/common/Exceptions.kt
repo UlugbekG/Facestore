@@ -7,6 +7,8 @@ open class AppException(
     cause: Throwable? = null
 ) : Exception(message, cause)
 
+class NotFoundException(message: String? = null) : AppException(message = message)
+
 class ErrorResponseException(
     val code: Int,
     message: String? = null,

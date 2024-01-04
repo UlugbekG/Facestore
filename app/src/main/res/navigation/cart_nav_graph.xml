@@ -11,14 +11,14 @@
         android:label="CartFrag"
         tools:layout="@layout/fragment_cart">
         <action
-            android:id="@+id/action_cartFrag_to_orderFragment"
-            app:destination="@id/orderFragment" />
+            android:id="@+id/action_cartFrag_to_createOrderFragment"
+            app:destination="@id/createOrderFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/orderFragment"
-        android:name="cd.ghost.cart.presentation.order.OrderFragment"
-        android:label="OrderFragment"
-        tools:layout="@layout/fragment_order" />
+        android:id="@+id/createOrderFragment"
+        tools:layout="@layout/fragment_create_order"
+        android:name="cd.ghost.orders.presentation.create_order.CreateOrderFragment"
+        android:label="CreateOrderFragment" />
 
 </navigation>

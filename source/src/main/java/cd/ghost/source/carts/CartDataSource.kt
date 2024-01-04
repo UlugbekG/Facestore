@@ -1,12 +1,12 @@
 package cd.ghost.source.carts
 
-import cd.ghost.source.carts.entity.CartItemDataEntity
+import cd.ghost.source.carts.entity.CartItemSourceEntity
 
 interface CartDataSource {
 
     suspend fun clearCart()
 
-    suspend fun getCart(): List<CartItemDataEntity>
+    suspend fun getCart(): List<CartItemSourceEntity>
 
     suspend fun saveToCart(productId: Int, quantity: Int)
 

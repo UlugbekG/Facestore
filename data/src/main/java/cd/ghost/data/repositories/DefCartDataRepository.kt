@@ -4,7 +4,7 @@ import android.content.res.Resources.NotFoundException
 import cd.ghost.common.Container
 import cd.ghost.common.flow.LazyFlowSubjectFactory
 import cd.ghost.source.carts.CartDataSource
-import cd.ghost.source.carts.entity.CartItemDataEntity
+import cd.ghost.source.carts.entity.CartItemSourceEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ class DefCartDataRepository @Inject constructor(
         cartDataSource.getCart()
     }
 
-    override fun getCart(): Flow<Container<List<CartItemDataEntity>>> {
+    override fun getCart(): Flow<Container<List<CartItemSourceEntity>>> {
         return cartSubject.listen()
     }
 
@@ -26,7 +26,7 @@ class DefCartDataRepository @Inject constructor(
         notifyChanges()
     }
 
-    override suspend fun getCartItemById(id: Int): CartItemDataEntity {
+    override suspend fun getCartItemById(id: Int): CartItemSourceEntity {
         return cartDataSource.getCart().firstOrNull { it.id == id } ?: throw NotFoundException()
     }
 

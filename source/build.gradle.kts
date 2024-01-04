@@ -39,7 +39,6 @@ dependencies {
 
     implementation(project(mapOf("path" to ":core:common")))
 
-
     // dependency injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)

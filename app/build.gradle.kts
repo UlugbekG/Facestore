@@ -56,6 +56,7 @@ dependencies {
     implementation(project(mapOf("path" to ":feature:cart")))
     implementation(project(mapOf("path" to ":feature:profile")))
     implementation(project(mapOf("path" to ":feature:auth")))
+    implementation(project(mapOf("path" to ":feature:orders")))
     implementation(project(mapOf("path" to ":core:common")))
     implementation(project(mapOf("path" to ":core:presentation")))
     implementation(project(mapOf("path" to ":core:common-impl")))

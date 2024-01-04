@@ -7,10 +7,13 @@ import cd.ghost.common.CommonUi
 import cd.ghost.common.Core
 import cd.ghost.common.CoreProvider
 import cd.ghost.common.Resources
+import cd.ghost.common.data_formatter.AndroidDateFormatter
+import cd.ghost.common.data_formatter.DateFormatter
 import cd.ghost.common.flow.DefaultLazyFlowSubjectFactory
 import cd.ghost.common.flow.LazyFlowSubjectFactory
 import cd.ghost.common_impl.DefaultCoreProvider
 import cd.ghost.presentation.AndroidCommonUi
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [CoreProviderModule.CoreBindModule::class])
 @InstallIn(SingletonComponent::class)
 class CoreProviderModule {
 
@@ -71,4 +74,15 @@ class CoreProviderModule {
             dispatcher = Dispatchers.IO,
         )
     }
+
+    @Module
+    @InstallIn(SingletonComponent::class)
+    interface CoreBindModule {
+
+        @Singleton
+        @Binds
+        fun bindDateFormatter(formatter: AndroidDateFormatter): DateFormatter
+
+    }
+
 }

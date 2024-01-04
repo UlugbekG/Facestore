@@ -5,8 +5,10 @@ import cd.ghost.data.repositories.CartDataRepository
 import cd.ghost.data.repositories.DefAuthDataRepository
 import cd.ghost.data.repositories.DefCartDataRepository
 import cd.ghost.data.repositories.DefFavoritesDataRepository
+import cd.ghost.data.repositories.DefOrdersDataRepository
 import cd.ghost.data.repositories.DefProductsDataRepository
 import cd.ghost.data.repositories.FavoritesDataRepository
+import cd.ghost.data.repositories.OrdersDataRepository
 import cd.ghost.data.repositories.ProductsDataRepository
 import dagger.Binds
 import dagger.Module
@@ -29,6 +31,9 @@ interface RepositoriesBindModule {
     @Binds
     @Singleton
     fun bindAuthRepo(repo: DefAuthDataRepository): AuthDataRepository
+    @Binds
+    @Singleton
+    fun bindOrdersRepo(repo: DefOrdersDataRepository): OrdersDataRepository
 
     @Binds
     @Singleton

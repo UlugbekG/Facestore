@@ -2,7 +2,7 @@ package cd.ghost.fakestore.features.catalog.mapper
 
 import cd.ghost.catalog.domain.entity.ProductEntity
 import cd.ghost.catalog.domain.entity.ProductRating
-import cd.ghost.source.carts.entity.ProductDataEntity
+import cd.ghost.source.carts.entity.ProductSourceEntity
 import cd.ghost.source.products.entities.ResponseProduct
 import javax.inject.Inject
 
@@ -23,8 +23,8 @@ class CatalogProductMapper @Inject constructor() {
         )
     }
 
-    fun toProductDataEntity(product: ProductEntity): ProductDataEntity {
-        return ProductDataEntity(
+    fun toProductDataEntity(product: ProductEntity): ProductSourceEntity {
+        return ProductSourceEntity(
             id = product.id,
             title = product.title,
             description = product.description,

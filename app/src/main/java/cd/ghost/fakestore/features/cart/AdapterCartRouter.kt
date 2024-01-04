@@ -12,7 +12,7 @@ class AdapterCartRouter @Inject constructor(
 
     override fun navigateToOrderScreen() {
         navControllerHolder.getCartsNavController()
-            ?.navigate(R.id.action_cartFrag_to_orderFragment)
+            ?.navigate(R.id.action_cartFrag_to_createOrderFragment)
     }
 
 }

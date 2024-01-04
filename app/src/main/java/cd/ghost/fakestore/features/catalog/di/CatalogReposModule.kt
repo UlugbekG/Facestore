@@ -3,9 +3,9 @@ package cd.ghost.fakestore.features.catalog.di
 import cd.ghost.catalog.domain.repositories.CartRepository
 import cd.ghost.catalog.domain.repositories.FilterRepository
 import cd.ghost.catalog.domain.repositories.ProductsRepository
-import cd.ghost.fakestore.features.catalog.repos.AdapterCartRepository
-import cd.ghost.fakestore.features.catalog.repos.AdapterFilterRepository
-import cd.ghost.fakestore.features.catalog.repos.AdapterProductsRepository
+import cd.ghost.fakestore.features.catalog.repositories.AdapterCartRepository
+import cd.ghost.fakestore.features.catalog.repositories.AdapterFilterRepository
+import cd.ghost.fakestore.features.catalog.repositories.AdapterProductsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

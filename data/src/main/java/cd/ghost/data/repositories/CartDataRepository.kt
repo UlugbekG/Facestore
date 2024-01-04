@@ -2,12 +2,12 @@ package cd.ghost.data.repositories
 
 import android.content.res.Resources.NotFoundException
 import cd.ghost.common.Container
-import cd.ghost.source.carts.entity.CartItemDataEntity
+import cd.ghost.source.carts.entity.CartItemSourceEntity
 import kotlinx.coroutines.flow.Flow
 
-interface CartDataRepository {
+interface   CartDataRepository {
 
-    fun getCart(): Flow<Container<List<CartItemDataEntity>>>
+    fun getCart(): Flow<Container<List<CartItemSourceEntity>>>
 
     /**
      * Add a new product to the cart.
@@ -19,7 +19,7 @@ interface CartDataRepository {
      * Get cart item by its ID.
      * @throws NotFoundException
      */
-    suspend fun getCartItemById(id: Int): CartItemDataEntity
+    suspend fun getCartItemById(id: Int): CartItemSourceEntity
 
     /**
      * Delete the specified cart items.
