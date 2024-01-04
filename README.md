@@ -8,7 +8,7 @@
   <img src="https://github.com/UlugbekG/Facestore/blob/main/preview/preview-1.png" width="15%" />
   <img src="https://github.com/UlugbekG/Facestore/blob/main/preview/preview-2.png" width="15%" />
 </div>
-<div align="center">
+<div align="start">
   <img src="https://github.com/UlugbekG/Facestore/blob/main/preview/preview-3.png" width="15%" />
   <img src="https://github.com/UlugbekG/Facestore/blob/main/preview/preview-4.png" width="15%" />
 </div>
